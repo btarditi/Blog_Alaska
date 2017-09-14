@@ -12,17 +12,13 @@
         </header>
 
         <div id="bloc_content">
-
-            <?php
-                $bdd = new PDO('mysql:host=localhost;dbname=blog_alaska;charset=utf8', 'root', '');
-                $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $posts = $bdd->query('SELECT * FROM episodes ORDER BY id ');
-            foreach ($posts as $post) : ?>
+<?php var_dump($listEpisodes); ?>
+            <?php foreach ($listEpisodes as $post) : ?>
                 <article>
                     <h2><?= $post['titre'] ?></h2>
                     <p><?= $post['contenu'] ?></p>
                 </article>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </div> <!-- /#bloc_content -->
 
         <footer class="footer">
