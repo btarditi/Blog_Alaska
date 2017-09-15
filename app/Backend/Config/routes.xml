@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
-  <route url="/admin/" module="Episode" action="index" />
-  <route url="/admin/episode-insert\.html" module="Episode" action="insert" />
-  <route url="/admin/episode-update-([0-9]+)\.html" module="Episode" action="update" vars="id" />
-  <route url="/admin/episode-delete-([0-9]+)\.html" module="Episode" action="delete" vars="id" />
-  <route url="/admin/comment-update-([0-9]+)\.html" module="Episode" action="updateComment" vars="id" />
-  <route url="/admin/comment-delete-([0-9]+)\.html" module="Episode" action="deleteComment" vars="id" />
+
+
+                    <!-- ***********BACKEND***************-->
+
+            <!-- ADMIN Home Page -->
+    <route url="/admin/home.html" module="Episode" action="admin" vars="userId" />
+
+            <!-- ADMIN /  Chapters CRUD -->
+    <route url="/episode/episode-insert.html" module="Episode" action="insert" />
+    <route url="/episode/episode-update-([0-9]+).html" module="Episode" action="update" vars="id" />
+    <route url="/episode/episode-delete-([0-9]+).html" module="Episode" action="delete" vars="id" />
+
+            <!-- ADMIN /  Comments CRUD -->
+    <route url="/comments/comment-update-([0-9]+).html" module="Commentaire" action="update" vars="chapId, comId" />
+    <route url="/comments/comment-delete-([0-9]+).html" module="Commentaire" action="delete" vars="chapId, comId" />
+
+            <!-- ADMIN /  Users CRUD -->
+    <route url="/users/user-insert.html" module="Users" action="insert"  />
+    <route url="/users/user-update-([0-9]+).html" module="Users" action="update" vars="id" />
+    <route url="/users/user-delete-([0-9]+).html" module="Users" action="delete" vars="id" />
+
 </routes>

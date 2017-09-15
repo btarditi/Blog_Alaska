@@ -12,7 +12,7 @@ abstract class EpisodeManager extends Manager
    * @param $episode Episode L'épisode à ajouter
    * @return void
    */
-  abstract protected function add(Episode $episode);
+  //abstract protected function insert(Episode $episode);
   
   /**
    * Méthode permettant d'enregistrer un episode.
@@ -25,7 +25,7 @@ abstract class EpisodeManager extends Manager
   {
     if ($episode->isValid())
     {
-      $episode->isNew() ? $this->add($episode) : $this->modify($episode);
+      $episode->isNew() ? $this->insert($episode) : $this->update($episode);
     }
     else
     {
@@ -46,23 +46,27 @@ abstract class EpisodeManager extends Manager
    * @param $id int L'identifiant de la news à récupérer
    * @return News La news demandée
    */
-  abstract public function getUnique($id);
+  abstract public function find($id);
+ 
+    /**
+     * Method returning a complete list of Chapters.
+     * @return array The list of all Chapters. Each entry is an instance of Chapter.
+     */
+    abstract public function findAll();
     
     /**
    * Méthode renvoyant le nombre de news total.
    * @return int
    */
-   public function count()
-  {
-    return $this->dao->query('SELECT COUNT(*) FROM news')->fetchColumn();
-  } 
+    abstract public function count();
+   
     
     /**
    * Méthode permettant de modifier une news.
    * @param $news news la news à modifier
    * @return void
    */
-  abstract protected function modify(News $news);
+  abstract protected function update(Episode $episode);
     
     /**
    * Méthode permettant de supprimer une news.

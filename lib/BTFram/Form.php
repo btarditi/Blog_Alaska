@@ -1,6 +1,8 @@
 <?php
 namespace BTFram;
- 
+
+use \BTFram\Entity;
+
 class Form
 {
   protected $entity;

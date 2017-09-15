@@ -5,7 +5,8 @@ use \BTFram\Entity;
  
 class Episode extends Entity
 {
-  protected $auteur,
+  protected id,
+            $auteur,
             $titre,
             $contenu,
             $dateAjout,

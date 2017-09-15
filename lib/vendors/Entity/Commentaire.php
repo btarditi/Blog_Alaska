@@ -1,14 +1,15 @@
 <?php
 namespace Entity;
  
-use \OCFram\Entity;
+use \BTFram\Entity;
  
 class Commentaire extends Entity
 {
-  protected $id_episode,
+  protected $episode_id,
             $auteur,
             $contenu,
-            $date;
+            $dateAjout,
+            $flag;
  
   const AUTEUR_INVALIDE = 1;
   const CONTENU_INVALIDE = 2;
@@ -43,15 +44,15 @@ class Commentaire extends Entity
     $this->contenu = $contenu;
   }
  
-  public function setDate(\DateTime $date)
+  public function setDateAjout(\DateTime $dateAjout)
   {
-    $this->date = $date;
+    $this->dateAjout = $dateAjout;
   }
  
  //  GETTER //
-  public function episode()
+  public function episode_id()
   {
-    return $this->episode;
+    return $this->episode_id;
   }
  
   public function auteur()
@@ -64,8 +65,13 @@ class Commentaire extends Entity
     return $this->contenu;
   }
  
-  public function date()
+  public function dateAjout()
   {
     return $this->date;
   }
+    
+  public function flag()
+    {
+        return $this->flag;
+    }
 }

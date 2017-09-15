@@ -5,7 +5,20 @@ use \Entity\Episode;
  
 class EpisodeManagerPDO extends EpisodeManager
 {
-  public function getList($debut = -1, $limite = -1)
+    
+    protected function insert(Episode $episode)
+  {
+    $requete = $this->dao->prepare('INSERT INTO episodes SET auteur = :auteur, titre = :titre, contenu = :contenu, dateAjout = NOW(), dateModif = NOW()');
+    
+    $requete->bindValue(':titre', $episode->titre());
+    $requete->bindValue(':auteur', $episode->auteur());
+    $requete->bindValue(':contenu', $episode->contenu());
+    
+    $requete->execute();
+  }
+    
+    
+    public function getList($debut = -1, $limite = -1)
   {
     $sql = 'SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM episodes ORDER BY id DESC';
  
@@ -17,9 +30,9 @@ class EpisodeManagerPDO extends EpisodeManager
     $requete = $this->dao->query($sql);
     $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Episode');
  
-    $listeEpisode = $requete->fetchAll();
+    $listEpisode = $requete->fetchAll();
  
-    foreach ($listeEpisode as $episode)
+    foreach ($listEpisode as $episode)
     {
       $episode->setDateAjout(new \DateTime($episode->dateAjout()));
       $episode->setDateModif(new \DateTime($episode->dateModif()));
@@ -27,10 +40,10 @@ class EpisodeManagerPDO extends EpisodeManager
  
     $requete->closeCursor();
  
-    return $listeEpisode;
+    return $listEpisode;
   }
  
-  public function getUnique($id)
+  public function find($id)
   {
     $requete = $this->dao->prepare('SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM episodes WHERE id = :id');
     $requete->bindValue(':id', (int) $id, \PDO::PARAM_INT);
@@ -49,18 +62,27 @@ class EpisodeManagerPDO extends EpisodeManager
     return null;
   }
     
-  protected function add(Episode $episode)
-  {
-    $requete = $this->dao->prepare('INSERT INTO episodes SET auteur = :auteur, titre = :titre, contenu = :contenu, dateAjout = NOW(), dateModif = NOW()');
+  public function findAll()
+    {
+        $sql = 'SELECT id, auteur, titre, contenu, dateajout, dateModif FROM episodes';
+        $requete = $this->dao->query($sql);
+        $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Episode');
+        $listEpisode = $requete->fetchAll();
+        foreach ($listEpisode as $episode)
+        {
+            $episode->setDateAjout(new \DateTime($episode->dateAjout()));
+            $episode->setDateModif(new \DateTime($episode->dateModif()));
+        }
+        $requete->closeCursor();
+        return $listEpisode;
+    }
+  
+  public function count()
+    {
+        return $this->dao->query('SELECT COUNT(*) FROM episodes')->fetchColumn();
+    }
     
-    $requete->bindValue(':titre', $episode->titre());
-    $requete->bindValue(':auteur', $episode->auteur());
-    $requete->bindValue(':contenu', $episode->contenu());
-    
-    $requete->execute();
-  }
-    
-  protected function modify(Episode $episode)
+  protected function update(Episode $episode)
     {
         $requete = $this->dao->prepare('UPDATE episodes SET auteur = :auteur, titre = :titre, contenu = :contenu, dateModif = NOW() WHERE id = :id');
         $requete->bindValue(':titre', $episode->titre());

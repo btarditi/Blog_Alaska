@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8" ?>
+
 <routes>
-  <route url="/" module="Episode" action="index" />
-  <route url="/episode-([0-9]+)\.html" module="episode" action="show" vars="id"/>
-  <route url="/commenter-([0-9]+)\.html" module="episode" action="insertComment" vars="episode" />
+    <!--              FRONTEND            -->
+
+    <!--HOME PAGE -->
+    <route url="/" module="Episode" action="home" /><!-- OK -->
+    <!--ABOUT-->
+    <route url="/aPropos.html" module="Episode" action="about" /><!-- OK -->
+
+    <!-- ******* ### Episode ### ******** -->
+    <!-- Page for ONE Episode -->
+    <route url="/episode-([0-9]+)\.html" module="Episode" action="show" vars="id"/><!-- OK -->
+    <!-- Page for ALL Episode -->
+    <route url="/tous-les-episodes-publier.html" module="Episode" action="all" /><!-- OK -->
+    <!-- Page for the last 5 Episode-->
+    <route url="/les-cinq-derniers-episodes.html" module="Episode" action="last" /><!-- OK -->
+
+
+                <!-- **********MODULE CONNECTION***************-->
+    <!--LOGIN-->
+    <route url="/connexion/user.html" module="Connexion" action="login" vars="userId" /><!-- OK -->
+    <!--LOGOUT-->
+    <route url="/connexion/disconnect.html" module="Connexion" action="logout" /> <!-- OK -->
+
+
+
+                <!-- ******* ### MODULE Users ### ******** -->
+    <!--REGISTER-->
+    <route url="/users/register.php" module="Users" action="register"  />
+
+
+
+                    <!-- ******* ### COMMENTS ### ******** -->
+    <!--VOIR POURS SUPPRIMET CETTE PAGE-->
+        <!-- ACTION => Insert || MODULE => Comments-->
+    <route url="/comments/insert-comment\.html" module="Commentaire" action="insert" vars="chapId" />
+
+        <!-- ACTION => Flag || MODULE => Comments-->
+    <route url="/comments/flag-comment-([0-9]+)\.html" module="Commentaire" action="flag" vars="scomId" />
 </routes>

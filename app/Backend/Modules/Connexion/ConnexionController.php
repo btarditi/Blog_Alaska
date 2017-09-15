@@ -3,6 +3,10 @@ namespace App\Backend\Modules\Connexion;
  
 use \BTFram\BackController;
 use \BTFram\HTTPRequest;
+use \Entity\Users;
+use \FormBuilder\UsersFormBuilder;
+use \BTFram\Form\FormHandler;
+
  
 class ConnexionController extends BackController
 {
@@ -26,4 +30,11 @@ class ConnexionController extends BackController
       }
     }
   }
+    
+  public function executeDisconnect(HTTPRequest $request)
+    {
+        $this->app->user()->setAuthenticated(false);
+        $this->app->httpResponse()->redirect('/');
+        $this->app->user()->setFlash('Vous êtes déconnecter !');
+    }
 }
