@@ -15,7 +15,7 @@
 
     <div class="row">
 
-        <?php foreach ($episodeList as $episode): ?>
+        <?php foreach ($listEpisode as $episode): ?>
 
             <div style="min-width: 380px!important;" class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 panel panel-default">
                 <div class="panel-heading">

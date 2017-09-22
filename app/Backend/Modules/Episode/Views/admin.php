@@ -1,12 +1,6 @@
 <h2 class="text-center" style="margin-top: 85px;margin-bottom: 30px;">Administration</h2>
 
-<?php if ($user->hasFlash()): ?>
-    <div id="flashMessage" class="row">
-        <?= '<p class="alert alert-warning center-block text-center">', $user->getFlash(), '</p>'; ?>
-    </div>
-<?php endif; ?>
-
-<?php if($user->isAuthenticated() && $user->isAdmin()): ?>
+<!-- NAV TABS  -->
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3 col-md-10 col-md-offset-1">
             <ul class="nav nav-tabs nav-justified">
@@ -18,7 +12,7 @@
     </div>
 <?php endif; ?>
 
-<?php if(isset($episodeList)): ?>
+<?php if(isset($listEpisode)): ?>
     <div class="tab-content">
         <div class="tab-pane fade in active adminTable" id="episode">
             <div class="table-responsive">
@@ -35,18 +29,18 @@
                         </tr>
                     </thead>
 
-                    <p style="text-align: center; margin-top: 30px; margin-bottom: 30px;">Il y a actuellement <?= $nbepisode ?> épisode(s). En voici la liste :</p>
+                    <p style="text-align: center; margin-top: 30px; margin-bottom: 30px;">Il y a actuellement <?= $nbEpisode ?> épisode(s). En voici la liste :</p>
 
-                    <?php foreach($episodesList as episode): ?>
+                    <?php foreach($listEpisode as $episode): ?>
                     <tr>
-                        <td><?= episode['id'] ?></td>
-                        <td><a href="../episode-<?= episode['id'] ?>.html"><?= htmlspecialchars(episode['titre']) ?></a></td>
-                        <td><?= substr(htmlspecialchars(nl2br(episode['contenu'])), 0, 120) ?></td>
-                        <td><?= episode['auteur'] ?></td>
-                        <td><?= episode['dateAjout']->format('d/m/Y à H\hi') ?></td>
-                        <td><?php if(episode['dateAjout'] != episode['dateModif']) { echo episode['dateModif']->format('d/m/Y à H\hi'); } ?></td>
+                        <td class="text-center"><?= $episode['id'] ?></td>
+                        <td><a href="../episode/episode-<?= $episode['id'] ?>.html"><?= htmlspecialchars($episode['titre']) ?></a></td>
+                        <td><?= substr(htmlspecialchars(nl2br($episode['contenu'])), 0, 120) ?></td>
+                        <td class="text-center"><?= $episode['auteur'] ?></td>
+                        <td><?= $episode['dateAjout']->format('d/m/Y à H\hi') ?></td>
+                        <td><?php if($episode['dateAjout'] != $episode['dateModif']) { echo $episode['dateModif']->format('d/m/Y à H\hi'); } ?></td>
                         <td>
-                            <a href="/episode/episode-update-<?= episode['id'] ?>.html" class="btn btn-info" title="Modifier l\'épisode"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a href="/admin/episode-update-<?= $episode['id'] ?>.html" class="btn btn-info" title="Modifier l\'épisode"><span class="glyphicon glyphicon-edit"></span></a>
                             <button type="button" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#episodeDialog"><span class="glyphicon glyphicon-remove"></span>
                             </button>
                             <div class="modal fade" id="episodeDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -57,7 +51,7 @@
                                             <h4 class="modal-title" id="myModalLabel">Confirmation nécessaire</h4>
                                         </div>
                                         <div class="modal-body">
-                                            Voulez vous vraiment supprimmer ce chapitre ?
+                                            Voulez vous vraiment supprimmer cet épisode ?
                                         </div>
                                         <div class="modal-footer">
                                             <a href="../episode-<?= $episode['id'] ?>" class="btn btn-default">Annuler</a>
@@ -74,12 +68,10 @@
             <?php else: ?>
                 <div class="alert alert-warning">Aucun épisode n'a été trouvé.</div>
             <?php endif; ?>
-            <?php if($user->isAuthenticated() && $user->isAdmin() ): ?>
-                <a  href="/episode/episode-insert-<?= $chapter['id'] ?>.html" class="btn btn-success center-block"><span class="glyphicon glyphicon-plus"></span> Ajouter un épisode</a>
-            <?php endif; ?>
+                <a  href="/admin/episode-insert-<?= $episode['id'] ?>.html" class="btn btn-success center-block"><span class="glyphicon glyphicon-plus"></span> Ajouter un épisode</a>
         </div>
         <div class="tab-pane fade adminTable" id="comments">
-            <?php if(isset($commentsList)): ?>
+            <?php if(isset($listCommentaire)): ?>
                 <div class="table-responsive">
                     <table class="table table-hover table-condensed">
                         <thead>
@@ -93,25 +85,18 @@
                         </tr>
                         </thead>
 
-                        <p style="text-align: center; margin-top: 30px; margin-bottom: 30px;">Il y a actuellement <?= $nbComments ?> commentaire(s), dont <?= $nbCommentsFlag ?> commentaire(s) qui ont été signalé. En voici la liste :</p>
+                        <p style="text-align: center; margin-top: 30px; margin-bottom: 30px;">Il y a actuellement <?= $nbCommentaire ?> commentaire(s), dont <?= $nbCommentsFlag ?> commentaire(s) qui ont été signalé. En voici la liste :</p>
 
-                        <?php foreach ($commentsList as $comment): ?>
+                        <?php foreach ($listCommentaire as $commentaire): ?>
 
-                        <tr <?php if($comment['flag'] != 0) { ?> style="background-color: darkred;" <?php } ?> >
-                            <td><?= $comment['id'] ?></td>
+                        <tr <?php if($commentaire['flag'] != 0) { ?> style="background-color: darkred;" <?php } ?> >
+                            <td class="text-center"><?= $commentaire['id'] ?></td>
+                            <td><?= 'Episode '.$commentaire['episode']; ?></td>
+                            <td><?= $commentaire['auteur']; ?></td>
+                            <td><?= htmlspecialchars(strip_tags($commentaire['contenu'])); ?></td>
+                            <td><?= $commentaire['flag'] ?></td>
                             <td>
-                                <?= 'Episode '.$comment['episode']; ?>
-                            </td>
-                            <td>
-                                <?php if($user->isAdmin() == 'ROLE_ADMIN'): ?>
-                                    <h2>ADMIN</h2>
-                                <?php elseif($user->isUser() == 'ROLE_USER'): ?>
-                                    <h2>USER</h2>
-                                <?php endif; ?></td>
-                            <td><?= htmlspecialchars(strip_tags($comment['contenu'])); ?></td>
-                            <td><?= $comment['flag'] ?></td>
-                            <td>
-                                <a href="/comments/comment-update-<?= $comment['id'] ?>.html" class="btn btn-info" title="Modifier le commentaire"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="/admin/commentaire-update-<?= $commentaire['id'] ?>.html" class="btn btn-info" title="Modifier le commentaire"><span class="glyphicon glyphicon-edit"></span></a>
                                 <button type="button" class="btn btn-danger" title="Supprimer le commentaire" data-toggle="modal" data-target="#commentDialog"><span class="glyphicon glyphicon-remove"></span>
                                 </button>
                                 <div class="modal fade" id="commentDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -126,7 +111,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                                                <a href="/comments/comment-delete-<?= $comment['id'] ?>.html" class="btn btn-danger">Confirmer</a>
+                                                <a href="/commentaire/commentaire-delete-<?= $commentaire['id'] ?>.html" class="btn btn-danger">Confirmer</a>
                                             </div>
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->
@@ -141,7 +126,7 @@
             <?php endif; ?>
         </div>
         <div class="tab-pane fade adminTable" id="users">
-            <?php if(isset($usersList)): ?>
+            <?php if(isset($listUsers)): ?>
                 <div class="table-responsive">
                     <table class="table table-hover table-condensed">
                         <thead>
@@ -157,17 +142,11 @@
 
                         <p style="text-align: center; margin-bottom: 30px; margin-top: 30px;">Il y a actuellement <?= $nbUsers ?> utilisateur(s). En voici la liste :</p>
 
-                        <?php foreach ($usersList as $user): ?>
+                        <?php foreach ($listUsers as $user): ?>
                         <tr>
-                            <td><?= $user['id'] ?></td>
-                            <td><?= $user['username'] ?></a></td>
-                            <td>
-                                <?php if($user['role'] == 'ROLE_ADMIN'): ?>
-                                Admin
-                                <?php else: ?>
-                                User
-                                <?php endif; ?>
-                            </td>
+                            <td class="text-center"><?= $user['id'] ?></td>
+                            <td class="text-center"><?= $user['username'] ?></td>
+                            <td class="text-center"><?= $user['role'] ?></td>
                             <td><?= $user['salt'] ?></td>
                             <td><?= $user['password'] ?></td>
                             <td>

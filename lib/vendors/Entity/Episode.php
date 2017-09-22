@@ -5,7 +5,7 @@ use \BTFram\Entity;
  
 class Episode extends Entity
 {
-  protected id,
+  protected $id,
             $auteur,
             $titre,
             $contenu,
@@ -21,15 +21,46 @@ class Episode extends Entity
     return !(empty($this->auteur) || empty($this->titre) || empty($this->contenu));
   }
  
+// GETTERS //
+  
+  public function id()
+    {
+        return $this->id;
+    }
+    
+  public function auteur()
+  {
+    return $this->auteur;
+  }
  
-  // SETTERS //
+  public function titre()
+  {
+    return $this->titre;
+  }
  
-  public function setId($id)
+  public function contenu()
+  {
+    return $this->contenu;
+  }
+ 
+  public function dateAjout()
+  {
+    return $this->dateAjout;
+  }
+ 
+  public function dateModif()
+  {
+    return $this->dateModif;
+  }
+    
+// SETTERS //
+ 
+public function setId($id)
     {
         $this->id = $id;
     }
     
-    public function setAuteur($auteur)
+public function setAuteur($auteur)
   {
     if (!is_string($auteur) || empty($auteur))
     {
@@ -69,35 +100,5 @@ class Episode extends Entity
     $this->dateModif = $dateModif;
   }
  
-  // GETTERS //
   
-  public function id()
-    {
-        return $this->id;
-    }
-    
-  public function auteur()
-  {
-    return $this->auteur;
-  }
- 
-  public function titre()
-  {
-    return $this->titre;
-  }
- 
-  public function contenu()
-  {
-    return $this->contenu;
-  }
- 
-  public function dateAjout()
-  {
-    return $this->dateAjout;
-  }
- 
-  public function dateModif()
-  {
-    return $this->dateModif;
-  }
 }

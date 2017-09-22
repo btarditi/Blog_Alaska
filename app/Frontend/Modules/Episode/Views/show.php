@@ -25,7 +25,7 @@
 <?php endif; ?>
 
 
-<?php if (empty($comments)) { ?>
+<?php if (empty($comment)) { ?>
     <p>Aucun commentaire n'a encore été posté. Soyez le premier à en laisser un !</p>
 <?php } else 
 { ?>
@@ -60,7 +60,7 @@
 
 
 <div class="well">
-        <?php foreach ($comments as $comment) : ?>
+        <?php foreach ($comment as $comment) : ?>
             <div class="panel panel-default episode">
 
                 <div class="panel-heading">
@@ -72,7 +72,7 @@
                         <?= nl2br(htmlspecialchars($comment['contenu'])) ?>
                         <?php if ($user->isAuthenticated() && $user->isUser()) : ?>
                             <p class="pull-right">
-                                <a class="btn btn-warning" title="Signaler le commentaire" href="/comments/flag-comment-<?= $comment['id'] ?>.html"><span class="glyphicon glyphicon-flag"> </span> </a>
+                                <a class="btn btn-warning" title="Signaler le commentaire" href="/commentaire/flag-comment-<?= $comment['id'] ?>.html"><span class="glyphicon glyphicon-flag"> </span> </a>
                             </p>
                         <?php endif; ?>
                     </p>

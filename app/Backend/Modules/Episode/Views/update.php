@@ -1,4 +1,4 @@
-<h2 class="text-center">Modifier un épisode</h2>
+<h2 class="text-center"><?= $title ?></h2>
 
 <div class="row">
     <div class="well">
@@ -7,7 +7,7 @@
 
             <?= $form ?>
 
-            <input class="btn btn-success col-sm-6 col-sm-offset-3" type="submit" value="Modifier" />
+            <input class="btn btn-success col-sm-6 col-sm-offset-3" type="submit" value="Valider" />
         </form>
     </div>
 </div>

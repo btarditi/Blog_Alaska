@@ -1,5 +1,5 @@
 <?php
-namespace OCFram;
+namespace BTFram;
  
 abstract class Manager
 {

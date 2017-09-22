@@ -1,0 +1,81 @@
+/*****************************************************************\
+*                        General Elements                        *
+\*****************************************************************/
+    #bloc_content {
+        /*margin-top: 150px!important;*/
+    }
+
+    /*h1:first-of-type {*/
+        /*margin-bottom: 35px;*/
+    /*}*/
+
+    a {
+        text-decoration: none !important;
+    }
+
+    div.flashMessage {
+        font-size: 2em;
+        background-color: #101010;
+        color: orangered;
+    }
+
+    .footer {
+        margin-top: 30px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        text-align: center;
+        font-size: 1.2em;
+        background-color: orangered;
+        color: white;
+    }
+    .footer a {
+        color: lightslategray;
+    }
+    .footer a:hover {
+        color: darkslategray;
+    }
+/*****************************************************************\
+*                           Home page                            *
+\*****************************************************************/
+    #jumbo1 {
+        background-image: url("../img/ecrire.jpg");
+        background-repeat: no-repeat;
+        background-size: 100% 200px;
+        height: 200px;
+    }
+    #jumbo2 {
+        background-image: url("../img/ecrire.jpg");
+        background-repeat: no-repeat;
+        background-size: 100% 200px;
+        height: 200px;
+    }
+    #jumbo3 {
+        background-image: url("../img/ecrire.jpg");
+        background-repeat: no-repeat;
+        background-size: 100% 200px;
+        height: 200px;
+    }
+
+    #btn-chapterIndex {
+        position: relative;
+        bottom: 9.5px;
+        left: 14px;
+    }
+
+    h2.panel-heading a:hover {
+        color: orangered;
+
+
+    div.chapter {
+    }
+
+}
+/*****************************************************************\
+*                         Chapter Page                           *
+\*****************************************************************/
+
+
+
+/*****************************************************************\
+*                         AllChapters Page                       *
+\*****************************************************************/

@@ -1,12 +1,14 @@
 <?php
 namespace BTFram;
 
-// Utilisation du trait Hydrator
-use Hydrator;
+
 
 abstract class Entity implements \ArrayAccess
 {
-  protected $erreurs = [],
+    // Utilisation du trait Hydrator
+    use Hydrator;
+    
+    protected $erreurs = [],
             $id;
  
   public function __construct(array $donnees = [])
@@ -17,6 +19,9 @@ abstract class Entity implements \ArrayAccess
     }
   }
  
+    
+// Getters
+    
   public function isNew()
   {
     return empty($this->id);
@@ -32,6 +37,8 @@ abstract class Entity implements \ArrayAccess
     return $this->id;
   }
  
+// Setters
+    
   public function setId($id)
   {
     $this->id = (int) $id;

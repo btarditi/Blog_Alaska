@@ -1,13 +1,17 @@
 <?php
 namespace BTFram;
- 
+
+/*
+** Classe Application du Bt Framwork  **
+classe de base de notre Framwork
+*/
 abstract class Application
 {
   protected $httpRequest;
   protected $httpResponse;
-  protected $name;
-  //protected $user;
-  //protected $config;
+  protected $name;   
+  protected $user;
+  protected $config;
  
   public function __construct()
   {

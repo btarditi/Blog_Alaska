@@ -5,12 +5,11 @@ use \BTFram\Entity;
  
 class Commentaire extends Entity
 {
-  protected $episode_id,
+  protected $episodeId, // Id de l'épisode concernant le commentaire
             $auteur,
             $contenu,
-            $dateAjout,
-            $flag;
- 
+            $date;
+             
   const AUTEUR_INVALIDE = 1;
   const CONTENU_INVALIDE = 2;
  
@@ -19,9 +18,9 @@ class Commentaire extends Entity
     return !(empty($this->auteur) || empty($this->contenu));
   }
  // SETTER //
-  public function setEpisode($episode)
+  public function setEpisodeId($episodeId)
   {
-    $this->id_episode = (int) $episode;
+    $this->episodeId = (int) $episodeId;
   }
  
   public function setAuteur($auteur)
@@ -44,15 +43,15 @@ class Commentaire extends Entity
     $this->contenu = $contenu;
   }
  
-  public function setDateAjout(\DateTime $dateAjout)
+  public function setDate(\DateTime $date)
   {
-    $this->dateAjout = $dateAjout;
+    $this->date = $date;
   }
  
  //  GETTER //
-  public function episode_id()
+  public function EpisodeId()
   {
-    return $this->episode_id;
+    return $this->episodeId;
   }
  
   public function auteur()
@@ -65,12 +64,12 @@ class Commentaire extends Entity
     return $this->contenu;
   }
  
-  public function dateAjout()
+  public function date()
   {
     return $this->date;
   }
     
-  public function flag()
+  public function flagCom()
     {
         return $this->flag;
     }

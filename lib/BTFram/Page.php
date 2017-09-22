@@ -6,7 +6,7 @@ class Page extends ApplicationComponent
   protected $contentFile;
   protected $vars = [];
  
-  public function addVar($var, $value)
+  public function addVar($var, $value) // ajouter une variable à la page
   {
     if (!is_string($var) || is_numeric($var) || empty($var))
     {
@@ -16,7 +16,7 @@ class Page extends ApplicationComponent
     $this->vars[$var] = $value;
   }
  
-  public function getGeneratedPage()
+  public function getGeneratedPage() // générer la page avec le layout de l'application
   {
     if (!file_exists($this->contentFile))
     {
@@ -36,7 +36,7 @@ class Page extends ApplicationComponent
     return ob_get_clean();
   }
  
-  public function setContentFile($contentFile)
+  public function setContentFile($contentFile) // assigner une vue à la page
   {
     if (!is_string($contentFile) || empty($contentFile))
     {

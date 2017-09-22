@@ -6,9 +6,8 @@
     </div>
 </header>
 
-<?php if(isset($episodeList)): ?>
-
-    <?php foreach ($episodeList as $episode): ?>
+<?php if(isset($listEpisode)): ?>
+    <?php foreach ($listEpisode as $episode): ?>
 
         <div style="min-width: 380px!important;" class="col-lg-3 col-lg-offset-1 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1  panel panel-default">
             <div class="panel-heading">

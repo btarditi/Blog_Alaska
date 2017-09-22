@@ -27,45 +27,42 @@
 
     <body>
         <header>
-                <!-- The NavBar System -->
-            <nav class="navbar navbar-inverse ">
+            <!-- The NavBar -->
+            <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-target">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="/">Billet simple pour l'Alaska</a>
-                    </div><!-- /.navbar-header -->
-
+                    </div>
                     <div class="collapse navbar-collapse" id="navbar-collapse-target">
                         <ul class="nav navbar-nav navbar-left">
-                            <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
-                            <li><a href="login.php"><span class="glyphicon glyphicon-save"></span> Inscription</a></li>
+                            <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Chapitres <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Episodes <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                        <li><a href="../les-cinq-derniers-chapitres.html">Derniers épisodes publiés</a></li>
-                                        <li><a href="../tous-les-chapitres-publier.html"><span class="glyphicon glyphicon-book"></span> Tous les épisodes</a></li>
+                                    <li><a href="../les-cinq-derniers-episodes.html">Derniers épisodes publiés</a></li>
+                                    <li><a href="../tous-les-chapitres-publier.html"><span class="glyphicon glyphicon-book"></span> Tous les épisodes</a></li>
                                 </ul>
                             </li>
                             <li><a href="../aPropos.html"><span class="glyphicon glyphicon-certificate"></span>  A propos</a></li>
-
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <?php if(!$user->isAuthenticated()): ?>
-                                <li><a href="/connexion/user.html"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
-                                <li><a href="/users/register.php"><span class="glyphicon glyphicon-save"></span> Inscription</a></li>
+                            <?php if (!$this->app->user()->isAuthenticated()) : ?>
+                                <li><a href="/admin/connect.html"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
+                                <li><a href="/users/register.php"><span class="glyphicon glyphicon-save"></span> S'inscrire</a></li>
                             <?php endif; ?>
-                            <?php if ($user->isAdmin()) : ?>
-                                <li><a href="./admin/home.html"><span class="glyphicon glyphicon-user"></span> Administration</a></li>
+                            <?php if ($this->app->user()->isAdmin()) : ?>
+                                <li><a href="./admin/index.html"><span class="glyphicon glyphicon-user"></span> Administration</a></li>
                             <?php endif; ?>
-                            <?php if($user->isAuthenticated()): ?>
+                            <?php if ($this->app->user()->isAuthenticated()) : ?>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bienvenue, <?= $user['username'] ?> <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bienvenue, <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/connexion/disconnect.html"><span class="glyphicon glyphicon-unchecked"></span> Se deconnecter</a></li>
+                                        <li><a href="/admin/disconnect.html"><span class="glyphicon glyphicon-unchecked"></span> Se deconnecter</a></li>
                                     </ul>
                                 </li>
                             <?php endif; ?>
@@ -75,8 +72,7 @@
             </nav>
         </header>
 
-
-        <div id="bloc_content" class="container" >
+        <div id="bloc_content" class="container" style="margin-top: 140px;">
 
             <?php if ($user->hasFlash()): ?>
                 <div id="flashMessage" class=" alert alert-info">
@@ -85,29 +81,28 @@
             <?php endif; ?>
 
             <?= $content ?>
-
 <?= var_dump($_SESSION) ?>
 <?= var_dump($_SERVER['REQUEST_URI']) ?>
-
         </div><!-- /#bloc_content .container -->
 
 
 
         <footer class="footer" >
-            <a href="">This Blog</a> est une application réalisé Bruno.
+            <a href="">Ce Blog</a> est une application réalisé par Bruno.
         </footer>
 
 
-            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="./lib/jQuery/jquery.slim.min.js"></script>
-            <!-- Latest compiled and minified JavaScript -->
-        <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
-        
-        <script src="./lib/TinyMCE/tinymce.min.js"></script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+                integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+                crossorigin="anonymous"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=pdrmf4bzda88287gylsko1q67ss9zm95ipd82ta1sw2dgnb2"></script>
         <script>
-            $( document ).ready(function() {
+            jQuery(document).ready(function() {
                 tinymce.init({
-                    selector: 'textarea',
+                    selector: '#tiny',
                     height: 200,
                     menubar: false,
                     plugins: [
