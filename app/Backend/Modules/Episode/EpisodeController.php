@@ -3,9 +3,16 @@ namespace App\Backend\Modules\Episode;
  
 use \BTFram\BackController;
 use \BTFram\HTTPRequest;
+use \BTFram\Entity;
 use \Entity\Episode;
+use \Entity\Commentaire;
+use \Entity\User;
+use \Form\Form;
+use \Form\FormBuilder;
 use \Form\FormBuilder\EpisodeFormBuilder;
 use \Form\FormHandler;
+use \Form\FormBuilder\CommentsFormBuilder;
+use \Form\FormBuilder\RegisterFormBuilder;
 
 class EpisodeController extends BackController
 {
@@ -55,13 +62,20 @@ Episode
 // DELETE A EPISODE    
     public function executeDelete(HTTPRequest $request)
     {
-        $episodeId = $request->getData('id');
-// SUppression de l'épisode demandé     
-        $this->managers->getManagerOf('Episode')->delete($episodeId);
-// Suppresion de tous les commentaires lié au chapitre a supprimer 
-        $this->managers->getManagerOf('Commentaire')->deleteFromEpisode($chapterId);
-        $this->app->user()->setFlash('L\'épisode a bien été supprimé !');
-        $this->app->httpResponse()->redirect('/admin/');
+        if($request->getExists('id'))
+        {
+            $id = $request->getData('id');
+            // SUppression de l'épisode demandé     
+            $this->managers->getManagerOf('Episode')->delete($id);
+            // Suppresion de tous les commentaires lié au chapitre a supprimer 
+            $this->managers->getManagerOf('Commentaire')->deleteFromEpisode($id);
+            $this->app->user()->setFlash('L\'épisode a bien été supprimé !');
+            $this->app->httpResponse()->redirect('/admin/index.html');
+        }
+        else
+        {
+            $this->app->user()->setFlash('Aucun identifiant d\'épisode n\'a été transmis !');
+        }
     }
 
 
@@ -73,7 +87,7 @@ Episode
             $episode = new Episode([
                 'auteur' => $request->postData('auteur'),
                 'titre' => $request->postData('titre'),
-                'contenu' => $request->postData('contenu')
+                'contenu' => strip_tags($request->postData('contenu'))
             ]);
             if ($request->postExists('id'))
             {
@@ -105,7 +119,7 @@ Episode
  
             $this->app->httpResponse()->redirect('/admin/index.html');
         }
- 
+        $this->page->addVar('episode', $episode);
         $this->page->addVar('form', $form->createView());
     }
     

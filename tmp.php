@@ -1,135 +1,123 @@
-<?php
-namespace Model;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-use \Entity\User;
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Blog avec une architecture MVC réalisée à l'occasion du Projet numéro 3 de la formation Chef de Projet Multimédia Option Dévelopment Web de la plate-forme Openclassrooms " />
+    <meta name="author" content="Delzongle Joel" />
 
-class UserManagerPDO extends UserManager
-{
-    protected function insert(User $user)
-    {
-        $q = $this->dao->prepare('INSERT INTO users SET username = :username, password = :password');
-        $q->bindValue(':username', $user->username());
-        $q->bindValue(':password', $user->password());
-        $q->bindValue(':salt', $user->salt());
-        $q->bindValue(':role', $user->role());
-        $q->execute();
-        $user->setId($this->dao->lastInsertId());
-    }
-    public function getUnique($id)
-    {
-        $q = $this->dao->prepare('SELECT id, username, password FROM users WHERE id = :id');
-        $q->bindValue(':id', (int) $id, \PDO::PARAM_INT);
-        $q->execute();
-        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
-        return $q->fetch();
-    }
-    public function getByUsername($username)
-    {
-        $q = $this->dao->prepare('SELECT id, username, password FROM users WHERE username = :username');
-        $q->bindValue(':username', $username);
-        $q->execute();
-        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
-        return $q->fetch();
-    }
-    public function getAll()
-    {
-        $q = $this->dao->query('SELECT id, username, password FROM Users ORDER BY username ');
-        $q->execute();
-        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
-        return $user = $q->fetchAll();
-    }
-    public function count()
-    {
-        return $this->dao->query('SELECT COUNT(*) FROM Users ')->fetchColumn();
-    }
-    protected function update(User $user)
-    {
-        $q = $this->dao->prepare('UPDATE Users SET username = :username, password = :password WHERE id = :id');
-        $q->bindValue(':username', $user->username());
-        $q->bindValue(':password', $user->password());
-        $q->bindValue(':salt', $user->salt());
-        $q->bindValue(':role', $user->role());
-        $q->bindValue(':id', $user->id());
-        $q->execute();
-    }
-    public function delete($id)
-    {
-        $this->dao->exec('DELETE FROM Users WHERE id = '.(int) $id);
-    }
-}
+    <link rel="icon" href="./img/book.png" />
+
+    <title>
+        <?= isset($title) ? $title : 'Billet simple pour l\'Alaska' ?>
+    </title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/slate/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- My stylesheet of CSS -->
+    <link href="./css/style.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<header>
+    <!-- The NavBar -->
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-target">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Billet simple pour l'Alaska</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse-target">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Chapitres <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../chapters/last.html">Derniers chapitres publiée</a></li>
+                            <li><a href="../chapters/all.html"><span class="glyphicon glyphicon-book"></span> Tous les chapitres</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../aPropos.html"><span class="glyphicon glyphicon-certificate"></span>  A propos</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <?php if (!$this->app->user()->isAuthenticated()) : ?>
+                        <li><a href="/admin/connect.html"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
+                        <li><a href="/users/register.php"><span class="glyphicon glyphicon-save"></span> S'inscrire</a></li>
+                    <?php endif; ?>
+                    <?php if ($this->app->user()->isAdmin()) : ?>
+                        <li><a href="./admin/home.html"><span class="glyphicon glyphicon-user"></span> Administration</a></li>
+                    <?php endif; ?>
+                    <?php if ($this->app->user()->isAuthenticated()) : ?>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bienvenue, <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/admin/disconnect.html"><span class="glyphicon glyphicon-unchecked"></span> Se deconnecter</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div><!-- /.container -->
+    </nav>
+</header>
+
+    <div id="bloc_content" class="container" style="margin-top: 140px;">
+    <?php if ($this->app->user()->hasFlash()) : ?>
+        <div id="flashMessage" class=" alert alert-success">
+            <?= '<p class="text-center">' . $this->app->user()->getFlash() . '</p>'; ?>
+        </div>
+    <?php endif; ?>
 
 
-<?php
-namespace Model;
+    <?= $content ?>
 
-use \Entity\User;
-use \BTFram\Manager;
+    <?= var_dump($_SESSION) ?>
+    <?= var_dump($_SERVER['REQUEST_URI']) ?>
 
-class UserManager extends Manager
-{
-    /**
-     * Méthode permettant d'ajouter un utilisateur.
-     * @param $user Users L'utilisateur à ajouter
-     * @return void
-     */
-    abstract protected function insert(User $user);
-    
-    /**
-     * Méthode permettant d'enregistrer un utilisateur.
-     * @param user Users L'utilisateur à enregistrer
-     * @see self::add()
-     * @see self::modify()
-     * @return void
-     */
-    public function save(User $user)
-    {
-        if ($user->isValid())
-        {
-            $user->isNew() ? $this->insert($user) : $this->update($user);
-        }
-        else
-        {
-            throw new \RuntimeException('L\'utilisateur doit être validé pour être enregistré');
-        }
-    }
-    
-    /**
-     * Méthode retournant un utilisateur précis.
-     * @param $id int L'identifiant de l'utilisateur à récupérer
-     * @return Users L'utilisateur demandée
-     */
-    abstract public function getUnique($id);
-    
-    /**
-     * Return a user matching the supplied username..
-     * @param string $username The user username.
-     * @return \Entity\Users |throw an exception if no matching user is found
-     */
-    abstract public function getByUsername($username);
-    
-    /**
-     * Return a list of all users, sorted by role and name
-     * @return array A list of all users.
-     */
-    abstract public function getAll();
-    
-    /**
-     * Méthode renvoyant le nombre d'utilisateur total.
-     * @return int
-     */
-    abstract public function count();
-    
-    /**
-     * Méthode permettant de modifier un utilisateur.
-     * @param $user Users L'utilisateur à modifier
-     * @return void
-     */
-    abstract protected function update(User $user);
-    
-    /**
-     * Méthode permettant de supprimer un utilisateur.
-     * @param $id int L'identifiant de l'utilisateur à supprimer
-     * @return void
-     */
-    abstract public function delete($id);
-}
+</div><!-- /#bloc_content .container -->
+
+<footer class="footer" >
+    <a href="http://www.github.com/freelance2608/CPM_DEV_P3_BlogMVC">Ce Blog MVC</a> est une application réalisé sans l'aide d'aucun framework PHP.
+</footer>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=pdrmf4bzda88287gylsko1q67ss9zm95ipd82ta1sw2dgnb2"></script>
+<script>
+    jQuery(document).ready(function() {
+        tinymce.init({
+            selector: '#tiny',
+            height: 200,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table contextmenu paste code'
+            ],
+            toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tinymce.com/css/codepen.min.css']
+        });
+    });
+</script>
+</body>
+</html>

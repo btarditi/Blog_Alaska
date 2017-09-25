@@ -1,4 +1,4 @@
-<h2 class="text-center" style="margin-bottom: 25px;"><?= $title ?></h2>
+<h2 class="text-center" style="margin-bottom: 25px;"><?= $titre ?></h2>
 
 <?php if(isset($erreurs)): ?>
     <div class="alert alert-danger">

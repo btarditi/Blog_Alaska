@@ -5,6 +5,7 @@ use \BTFram\BackController;
 use \BTFram\HTTPRequest;
 use \Form\FormBuilder\RegisterFormBuilder;
 use \Entity\User;
+use \Form\FormHandler;
 
 class ConnexionController extends BackController
 {
@@ -24,68 +25,63 @@ class ConnexionController extends BackController
     public function executeLogout(HTTPRequest $request)
     {
         $this->app->user()->setAuthenticated(false);
-        $_SESSION['role'] = '';
         $this->app->httpResponse()->redirect('/');
         $this->app->user()->setFlash('Aurevoir, à bientôt !');
     }
 
     public function processFormConnect( HTTPRequest $request )
     {
-        if( $request->method() == 'POST' ) {
+        if( $request->method() == 'POST' )
+        {
             $user = new User( [
                'username' => $request->postData( 'username' ),
                'password' => $request->postData( 'password' ),
-           ] );
-//            if( $request->getExists( 'id' ) ) {
-//                $user->setId( $request->getData( 'id' ) );
-//            }
-            if( $request->postData('username') === 'admin' ) {
-                $user->setRole( 'ROLE_ADMIN' );
-            }
-            else {
-                $user->setRole('ROLE_USER');
-            }
-            // On récupère l'utilisateur en BDD
-            $userBDD = $this->managers->getManagerOf('User')->getByUsername($user->username());
-            if(!empty($userBDD)) {
-                if($user->username() == $userBDD->username())
-                {
-//                    $salt = $userBDD->salt();
-//                    $pass = substr(sha1($user->password() . $salt), 0,23);
-                    $pass = $request->postData('password');
-                    if($pass == $userBDD['password'])
-                    {
-                        $this->app->user()->setAuthenticated(true);
-                        $_SESSION['role'] = $user->role();
-                        $this->app->httpResponse()->redirect('/');
-                    }
-                    else
-                    {
-                        $erreurs = 'Votre mot de passe ne correspond pas!';
-                    }
-                }
-                else
-                {
-                    $erreurs = 'Votre nom d\'utilisateur est incorrect !';
-                }
-            }
-            else
+               'salt' => $request->postData('salt')
+            ] );
+            if( $request->getExists( 'id' ) )
             {
-                $erreurs = 'Vous n\'êtes pas encore inscrit, procéder à votre inscription !';
+                $user->setId( $request->getData( 'id' ) );
             }
         }
         else
         {
-            $user = new User();
+            // L'identifiant de l'utilisateur est transmis si on veut la modifier
+            if ($request->getExists('id'))
+            {
+                $user = $this->managers->getManagerOf('User')->getUnique($request->getData('id'));    
+            }
+            else
+            {
+                // Generate a random salt value
+                $salt = substr(md5(time()), 0, 23);
+                $user = new User();
+                $user->setSalt($salt);
+                $user->setRole('ROLE_USER');
+            }
         }
-        $formBuilder = new RegisterFormBuilder($user);
-        $formBuilder->build();
-        $form = $formBuilder->form();
-        // Si une erreur a été générer, on l'envoie à la page
-        if(isset($erreurs)) {
-            $this->page->addVar( 'erreurs', $erreurs );
+        if($request->postExists('username'))
+        {
+           // On récupère le champ Username
+            $username = $request->postData('username');
+            $password = $request->postData('password');
+            // On récupère l'utilisateur en BDD grace à $username 
+            $userBDD = $this->managers->getManagerOf('User')->getByUsername($user->username());
+            $pass = $request->postData('password');
+            // Ajout du salt au MDP puis hashage avec SHA1 du MDP complet
+            $password = sha1( $password . $userBDD->salt());
+            if( $password === $userBDD['password'])
+            {
+                $this->app->user()->setAuthenticated(true) ;
+                $_SESSION['role'] = $user['role'];
+                $this->app->httpResponse()->redirect('/');
+                $this->page->addVar ('user', $userBDD);
+            }
+            else
+            {
+                $this->app->user()->setFlash('Le pseudo ou le mot de passe est incorrect');
+            }
         }
-        // On envoie le formulaire à la page
-        $this->page->addVar('form', $form->createView());
+            
+            
     }
 }

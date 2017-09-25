@@ -6,30 +6,28 @@
     <!-- ******* ### Principal Page ### ******** -->
 
     <!--HOME PAGE -->
-    <route url="/" module="Episode" action="index" />
+    <route url="/" module="Episode" action="index" /><!-- OK -->
         
     <!--ABOUT-->
-    <route url="/aPropos.html" module="Episode" action="about" />
+    <route url="/aPropos.html" module="Episode" action="about" /><!-- OK -->
 
      
     <!-- ******* ### Episode ### ******** -->
     <!-- Page for ONE Episode -->
     <route url="/episode-([0-9]+)\.html" module="Episode" action="show" vars="id"/><!-- OK -->
     <!-- Page for ALL Episode -->
-    <route url="/episode/tous-les-episodes-publier.html" module="Episode" action="all" /><!-- OK -->
+    <route url="/episode/all.html" module="Episode" action="all" />
     <!-- Page for the last 5 Episode-->
-    <route url="/episode/les-cinq-derniers-episodes.html" module="Episode" action="last" /><!-- OK -->
+    <route url="/episode/last.html" module="Episode" action="last" />
 
 
     <!-- ******* ### MODULE Users ### ******** -->
-    <!--REGISTER-->
-    <route url="/user/register.php" module="Users" action="register"  />
+    <!--Connexion user-->
+   
 
-
-    <!-- ******* ### COMMENTS ### ******** -->
-    <!--VOIR POURS SUPPRIMER CETTE PAGE-->
-        <!-- ACTION => Insert || MODULE => Comments-->
-    <route url="/commentaire/insert-commentaire\.html" module="Commentaire" action="insert" vars="episodeId" />
-
-      
+    <!--REGISTER a user-->
+    <route url="/user/register.html" module="User" action="register"  />
+    <!--LOGIN-->
+    <route url="/connexion/user.html" module="User" action="register" /><!-- OK -->
+          
 </routes>

@@ -10,7 +10,6 @@
             </ul>
         </div>
     </div>
-<?php endif; ?>
 
 <?php if(isset($listEpisode)): ?>
     <div class="tab-content">
@@ -30,7 +29,7 @@
                     </thead>
 
                     <p style="text-align: center; margin-top: 30px; margin-bottom: 30px;">Il y a actuellement <?= $nbEpisode ?> épisode(s). En voici la liste :</p>
-
+<?php var_dump($listEpisode); ?>
                     <?php foreach($listEpisode as $episode): ?>
                     <tr>
                         <td class="text-center"><?= $episode['id'] ?></td>
@@ -40,7 +39,7 @@
                         <td><?= $episode['dateAjout']->format('d/m/Y à H\hi') ?></td>
                         <td><?php if($episode['dateAjout'] != $episode['dateModif']) { echo $episode['dateModif']->format('d/m/Y à H\hi'); } ?></td>
                         <td>
-                            <a href="/admin/episode-update-<?= $episode['id'] ?>.html" class="btn btn-info" title="Modifier l\'épisode"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a href="/admin/episode-update-<?= $episode->id() ?>.html" class="btn btn-info" title="Modifier l\'épisode"><span class="glyphicon glyphicon-edit"></span></a>
                             <button type="button" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#episodeDialog"><span class="glyphicon glyphicon-remove"></span>
                             </button>
                             <div class="modal fade" id="episodeDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -55,7 +54,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <a href="../episode-<?= $episode['id'] ?>" class="btn btn-default">Annuler</a>
-                                            <a href="/episode/episode-delete-<?= $episode['id'] ?>.html" class="btn btn-danger">Confirmer</a>
+                                            <a href="/admin/episode-delete-<?= $episode['id'] ?>.html" class="btn btn-danger">Confirmer</a>
                                         </div>
                                     </div><!-- /.modal-content -->
                                 </div><!-- /.modal-dialog -->
@@ -93,8 +92,8 @@
                             <td class="text-center"><?= $commentaire['id'] ?></td>
                             <td><?= 'Episode '.$commentaire['episode']; ?></td>
                             <td><?= $commentaire['auteur']; ?></td>
-                            <td><?= htmlspecialchars(strip_tags($commentaire['contenu'])); ?></td>
-                            <td><?= $commentaire['flag'] ?></td>
+                            <td><?= substr($commentaire['contenu'], 0, 20); ?></td>
+                            <td class="text-center"><?= $commentaire['flag']; ?></td>
                             <td>
                                 <a href="/admin/commentaire-update-<?= $commentaire['id'] ?>.html" class="btn btn-info" title="Modifier le commentaire"><span class="glyphicon glyphicon-edit"></span></a>
                                 <button type="button" class="btn btn-danger" title="Supprimer le commentaire" data-toggle="modal" data-target="#commentDialog"><span class="glyphicon glyphicon-remove"></span>
@@ -111,7 +110,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                                                <a href="/commentaire/commentaire-delete-<?= $commentaire['id'] ?>.html" class="btn btn-danger">Confirmer</a>
+                                                <a href="/admin/commentaire-delete-<?= $commentaire['id'] ?>.html" class="btn btn-danger">Confirmer</a>
                                             </div>
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->
@@ -126,7 +125,7 @@
             <?php endif; ?>
         </div>
         <div class="tab-pane fade adminTable" id="users">
-            <?php if(isset($listUsers)): ?>
+            <?php if(isset($listUser)): ?>
                 <div class="table-responsive">
                     <table class="table table-hover table-condensed">
                         <thead>
@@ -142,7 +141,7 @@
 
                         <p style="text-align: center; margin-bottom: 30px; margin-top: 30px;">Il y a actuellement <?= $nbUsers ?> utilisateur(s). En voici la liste :</p>
 
-                        <?php foreach ($listUsers as $user): ?>
+                        <?php foreach ($listUser as $user): ?>
                         <tr>
                             <td class="text-center"><?= $user['id'] ?></td>
                             <td class="text-center"><?= $user['username'] ?></td>
@@ -150,7 +149,7 @@
                             <td><?= $user['salt'] ?></td>
                             <td><?= $user['password'] ?></td>
                             <td>
-                                <a href="/users/user-update-<?= $user['id'] ?>.html " class="btn btn-info" title="Modifier l\'utilisateur"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="/admin/user-update-<?= $user['id'] ?>.html " class="btn btn-info" title="Modifier l\'utilisateur"><span class="glyphicon glyphicon-edit"></span></a>
                                 <button type="button" class="btn btn-danger" title="Supprimer l\'utilisateur" data-toggle="modal" data-target="#userDialog"><span class="glyphicon glyphicon-remove"></span>
                                 </button>
                                 <div class="modal fade" id="userDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -165,7 +164,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                                                <a href="/users/user-delete-<?= $user['id'] ?>.html" class="btn btn-danger">Confirmer</a>
+                                                <a href="/admin/user-delete-<?= $user['id'] ?>.html" class="btn btn-danger">Confirmer</a>
                                             </div>
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->

@@ -25,7 +25,7 @@
 <?php endif; ?>
 
 
-<?php if (empty($comment)) { ?>
+<?php if (empty($commentaire)) { ?>
     <p>Aucun commentaire n'a encore été posté. Soyez le premier à en laisser un !</p>
 <?php } else 
 { ?>
@@ -60,7 +60,8 @@
 
 
 <div class="well">
-        <?php foreach ($comment as $comment) : ?>
+    
+        <?php foreach ($commentaire as $comment) : ?>
             <div class="panel panel-default episode">
 
                 <div class="panel-heading">
@@ -81,11 +82,11 @@
                 <div class="panel-footer" style="min-height: 60px;">
                     <?php if ($user->isAUthenticated()): ?>
                         <p class="pull-left">
-                            <a class="btn btn-info" title="Modifier le commentaire" href="/comments/comment-update-<?= $comment['id'] ?>.html"><span class="glyphicon glyphicon-pencil"></span> </a>
-                            <a class="btn bn-danger" title="Supprimer le commentaire" href="/comments/comment-delete-<?= $comment['id'] ?>.html"><span class="glyphicon glyphicon-remove"></span> </a>
+                            <a class="btn btn-info" title="Modifier le commentaire" href="/commentaire/comment-update-<?= $comment['id'] ?>.html"><span class="glyphicon glyphicon-pencil"></span> </a>
+                            <a class="btn bn-danger" title="Supprimer le commentaire" href="/commentaire/comment-delete-<?= $comment['id'] ?>.html"><span class="glyphicon glyphicon-remove"></span> </a>
                         </p>
                     <?php  else : ?>
-                        <p class="text-center"><a href="/connexion/user.html" >Connectez-vous</a> ou <a href="/users/register.php" >Inscrivez-vous</a> pour ajouter un commentaire</p>
+                        <p class="text-center"><a href="/connexion/user.html" >Connectez-vous</a> ou <a href="/user/register.html" >Inscrivez-vous</a> pour ajouter un commentaire</p>
                     <?php endif; ?>
 
                 </div>

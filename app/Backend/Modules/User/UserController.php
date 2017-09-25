@@ -23,7 +23,6 @@ class UserController extends BackController
     public function executeDelete(HTTPRequest $request)
     {
         $userManager = $this->managers->getManagerOf('User');
-//        $commentManager = $this->managers->getManagerOf('Comments');
         $userManager->delete($request->getData('id'));
         $this->app->user()->setFlash('L\'utilisateur et ses commentaires à bien été supprimer.');
         // redirection vers l'Admin

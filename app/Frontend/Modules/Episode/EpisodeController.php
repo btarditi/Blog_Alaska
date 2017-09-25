@@ -17,6 +17,7 @@ class EpisodeController extends BackController
     public function executeIndex(HTTPRequest $request)
     {
         $nbEpisode = $this->app->config()->get('nb_episode');
+        
         $nbCaractere = $this->app->config()->get('nb_caractere');
         // On ajoute une définition pour le titre.
         $this->page->addVar('titre', 'Liste des ' . $nbEpisode . ' derniers épisodes');
@@ -64,7 +65,7 @@ class EpisodeController extends BackController
     public function executeAll(HTTPRequest $request)
     {
         $manager = $this->managers->getManagerOf('Episode');
-        $listEpisode = $manager->getAll();
+        $listEpisode = $manager->getList();
         $nbEpisode = $manager->count();
         foreach ($listEpisode as $episode)
         {
@@ -105,7 +106,7 @@ class EpisodeController extends BackController
         }
         // On ajoute la variable $episodeList à la vue.
         $this->page->addVar('listEpisode', $listEpisode);
-        $this->page->addVar('nb_episode', $nbEpisode);
+        $this->page->addVar('nbEpisode', $nbEpisode);
     }
     
 /**

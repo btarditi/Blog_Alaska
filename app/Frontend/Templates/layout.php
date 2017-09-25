@@ -40,20 +40,20 @@
                     </div>
                     <div class="collapse navbar-collapse" id="navbar-collapse-target">
                         <ul class="nav navbar-nav navbar-left">
-                            <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                            <li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Episodes <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="../les-cinq-derniers-episodes.html">Derniers épisodes publiés</a></li>
-                                    <li><a href="../tous-les-chapitres-publier.html"><span class="glyphicon glyphicon-book"></span> Tous les épisodes</a></li>
+                                    <li><a href="../episode/last.html">Derniers épisodes publiés</a></li>
+                                    <li><a href="../episode/all.html"><span class="glyphicon glyphicon-book"></span> Tous les épisodes</a></li>
                                 </ul>
                             </li>
                             <li><a href="../aPropos.html"><span class="glyphicon glyphicon-certificate"></span>  A propos</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <?php if (!$this->app->user()->isAuthenticated()) : ?>
-                                <li><a href="/admin/connect.html"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
-                                <li><a href="/users/register.php"><span class="glyphicon glyphicon-save"></span> S'inscrire</a></li>
+                                <li><a href="/connexion/user.html"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a></li>
+                                <li><a href="/user/register.html"><span class="glyphicon glyphicon-save"></span> S'inscrire</a></li>
                             <?php endif; ?>
                             <?php if ($this->app->user()->isAdmin()) : ?>
                                 <li><a href="./admin/index.html"><span class="glyphicon glyphicon-user"></span> Administration</a></li>
@@ -74,15 +74,15 @@
 
         <div id="bloc_content" class="container" style="margin-top: 140px;">
 
-            <?php if ($user->hasFlash()): ?>
-                <div id="flashMessage" class=" alert alert-info">
-                    <?= '<p class="text-center">' . $user->getFlash() . '</p>';  ?>
-                </div>
+            <?php if ($this->app->user()->hasFlash()) : ?>
+            <div id="flashMessage" class=" alert alert-success">
+                <?= '<p class="text-center">' . $this->app->user()->getFlash() . '</p>'; ?>
+            </div>
             <?php endif; ?>
 
             <?= $content ?>
-<?= var_dump($_SESSION) ?>
-<?= var_dump($_SERVER['REQUEST_URI']) ?>
+            
+
         </div><!-- /#bloc_content .container -->
 
 

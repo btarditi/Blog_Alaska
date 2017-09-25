@@ -8,7 +8,7 @@
 
     <!-- **********MODULE CONNECTION***************-->
     <!--LOGIN-->
-    <route url="/admin/connect.html" module="Connexion" action="index" /><!-- OK -->
+    <route url="/connexion/user.html" module="Connexion" action="index" /><!-- OK -->
 
     <!--LOGOUT-->
     <route url="/admin/disconnect.html" module="Connexion" action="logout" /> <!-- OK -->

@@ -1,12 +1,12 @@
 <?php
-namespace App\Frontend\Modules\Users;
+namespace App\Frontend\Modules\User;
 use \Entity\User;
 use \BTFram\BackController;
 use \BTFram\HTTPRequest;
 use \Form\FormHandler;
 use \Form\FormBuilder\RegisterFormBuilder;
 
-class UsersController extends BackController
+class UserController extends BackController
 {
 
  /**
@@ -18,7 +18,8 @@ class UsersController extends BackController
         $this->processFormUser($request);
         $this->page->addVar('titre', 'Inscription');
     }
-    
+
+        
 /**
 * FormHandler for the user register
 * @param HTTPRequest $request
@@ -49,14 +50,16 @@ class UsersController extends BackController
         $formBuilder = new RegisterFormBuilder($user);
         $formBuilder->build();
         $form = $formBuilder->form();
-        $formHandler = new FormHandler($form, $this->managers->getManagerOf('Users'), $request);
+        $formHandler = new FormHandler($form, $this->managers->getManagerOf('User'), $request);
         if ($formHandler->process())
         {
             if($user->isNew() ) {
                 $this->app->user()->setFlash('Félicitation, vous faites maintenant officiellement partie de l\'aventure');
             }
-            $this->app->httpResponse()->redirect('/index.html');
+            $this->app->httpResponse()->redirect('Admin/index.html');
         }
         $this->page->addVar('form', $form->createView());
-    } 
+    }
+    
+    
 } 

@@ -28,7 +28,7 @@ class CommentaireController extends BackController
         if ($request->method() == 'POST')
         {
             $commentaire = new Commentaire([
-                'id' => $request->getData('id'),
+                'id_episode' => $request->getData('id'),
                 'auteur' => $request->postData('auteur'),
                 'contenu' => $request->postData('contenu'),
                 'flag' => $request->postData('flag'),
