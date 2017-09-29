@@ -16,6 +16,7 @@
         <?= $form ?>
          
  <?= 'MDP = 12345' ?>
+        
         <div class="form-group">
             <div class="col-sm-5 col-sm-offset-5">
                 <input type="submit" class="btn btn-success btn-block" value="Connexion" />

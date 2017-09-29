@@ -69,7 +69,7 @@ class UserManagerPDO extends UserManager
         $q->bindValue(':role', $user->role());
         
         $q->execute();
-        $user->setId($this->dao->lastInsertId());
+//        $user->setId($this->dao->lastInsertId());
     }
     /**
      * Update un users
@@ -77,7 +77,7 @@ class UserManagerPDO extends UserManager
      */
     protected function update( User $user)
     {
-        $q = $this->dao->prepare('UPDATE users SET username = :username, password = :password, email = :email, salt = :salt, role = :role, inscription = NOW()  WHERE id = :id');
+        $q = $this->dao->prepare('UPDATE users SET username = :username, password = :password, email = :email, salt = :salt, role = :role, inscription = :inscription  WHERE id = :id');
         
         $q->bindValue(':id', $user->id());
         $q->bindValue(':username', $user->username());
@@ -86,7 +86,8 @@ class UserManagerPDO extends UserManager
         $q->bindValue(':salt', $user->salt());
         $q->bindValue(':role', $user->role());
         $q->bindValue(':inscription', $user->inscription());
-       
+        $q->bindValue(':id', $user->id());
+        
         $q->execute();
     }
     /**

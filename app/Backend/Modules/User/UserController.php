@@ -52,19 +52,21 @@ class UserController extends BackController
     }
     public function processFormRegister(HTTPRequest $request)
     {
-        if ($request->method() == 'POST')
+        if( $request->method() == 'POST' )
         {
-            $user = new User([
-                'username' => $request->postData('username'),
-                'password' => $request->postData('password'),
-                'email' => $request->postData( 'email'),
-            ]);
+            $user = new User( array(
+               'username' => $request->postData( 'username' ),
+               'password' => $request->postData( 'password'),
+               'email' => $request->postData( 'email'),
+           ));
+
             // On vérifie que le username est disponible
             $userBDD = $this->managers->getManagerOf('User')
                 ->getByUsername($request->postData('username'));
+
             $username = $request->postData('username');
-            // Si le username n'existe pas en BDD
-            if(isset($username) && !empty($username)) 
+
+            if(isset($username) && !empty($username)) // Si le username n'existe pas en BDD
             {
                 if($user->isNew())
                 {
@@ -73,7 +75,9 @@ class UserController extends BackController
                     // On génère une clé de salage
                     $user->setSalt(substr(md5(time()), 0, 23));
                 }
+
                 $mdpForm = $request->postData('password');
+
                 if(isset($mdpForm) && !empty($mdpForm))
                 {
                     $pass = sha1($mdpForm . $user->salt());
@@ -95,23 +99,32 @@ class UserController extends BackController
         {
             $user = new User();
         }
+
+
         $formBuilder = new RegisterFormBuilder($user);
         $formBuilder->build();
         $form = $formBuilder->form();
+
         $formHandler = new FormHandler($form, $this->managers->getManagerOf('User'), $request);
+
         if ($formHandler->process())
         {
             $this->app->user()->setFlash($user->isNew() ? 'Félicitation vous faite maintenant partit de l\'aventure !' : 'L\'utilisateur à bien été modifié !');
-            $user->isNew() ? $this->app->httpResponse()->redirect('/') : $this->app->httpResponse()->redirect('/admin/index.html#users');
+
+            $user->isNew() ? $this->app->httpResponse()->redirect('/') : $this->app->httpResponse()->redirect('/admin/home.html#user');
         }
+
         // Si une erreur a été générer, on l'envoie à la page
         if(isset($erreurs)) {
             $this->page->addVar( 'erreurs', $erreurs );
         }
+
 //        $this->page->addVar( 'user', $user );
         // On envoie le formulaire à la page
         $this->page->addVar('form', $form->createView());
-}
+
+
+    } /* End of ProcessFormUser */
     
 }
     
