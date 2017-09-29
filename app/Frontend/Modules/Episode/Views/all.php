@@ -1,34 +1,29 @@
+<hr>
 <h2 class="text-center">Les <?= $nbEpisode ?> episodes </h2>
-
-<header>
-    <div class="jumbotron" id="jumbo3">
-        
-    </div>
-</header>
+<hr>
 
 <?php if(isset($listEpisode)): ?>
     <?php foreach ($listEpisode as $episode): ?>
 
-        <div style="min-width: 380px!important;" class="col-lg-3 col-lg-offset-1 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1  panel panel-default">
-            <div class="panel-heading">
-                <h2 class="text-center">
-                    <a href="/episode-<?= $episode['id'] ?>.html"><?= $episode['titre']; ?></a>
-                </h2>
+        <article class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 panel panel-default">
+            <h2 class="panel-heading text-center">
+                <a href="/episode/episode-<?= $episode->id() ?>.html"><?= $episode->titre(); ?></a>
+            </h2>
+            <div class="well">
+                <p class="panel-body">
+                    <?= nl2br($episode['contenu']); ?>
+                </p>
             </div>
 
             <div class="well">
-                <?= nl2br($episode['contenu']); ?>
-            </div>
-
-            <div class="panel-footer">
-                <?php if($episode['dateAjout'] != $episode['dateModif']): ?>
-                    <p class="pull-right"><?= 'Dernières modification le ' . $episode['dateModif']->format(' d/m/Y à H\hi'); ?></p>
+                <p><a  class="btn btn-success pull-right " href="/episode/episode-<?= $episode->id() ?>.html">Lire la suite ...</a></p>
+                <?php if($episode->dateAjout() != $episode->dateModif()): ?>
+                    <small class="text-center"><?= 'Modifié le ' . $episode->dateModif()->format('d/m/Y à H\hi'); ?></small>
                 <?php else: ?>
-                    <p class="pull-right"><?= 'Publié le ' . $episode['dateAjout']->format(' d/m/Y à H\hi');   ?></p>
+                    <small class="text-center"><?= 'Publié le ' . $episode->dateAjout()->format(' d/m/Y à H\hi');   ?></small>
                 <?php endif; ?>
-                <a id="btn-episodeIndex" class="btn btn-success pull-right" href="/episode-<?= $episode['id'] ?>.html">Lire la suite ...</a>
             </div>
-        </div>
+        </article>
 
     <?php endforeach; ?>
 

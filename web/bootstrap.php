@@ -22,12 +22,6 @@ $entityLoader->register();
 
 $formLoader = new SplClassLoader('Form', __DIR__.'/../lib/vendors/');
 $formLoader->register();
-//
-//$formFieldLoader = new SplClassLoader('Field', __DIR__.'/../lib/OCFram/Form');
-//$formBuilderLoader->register();
-//
-//$formValidatorsLoader = new SplClassLoader('Validators', __DIR__.'/../lib/OCFram/Form');
-//$formBuilderLoader->register();
 
 // Il ne nous suffit plus qu'à déduire le nom de la classe et à l'instancier
 $appClass = 'App\\'.$_GET['app'].'\\'.$_GET['app'].'Application';

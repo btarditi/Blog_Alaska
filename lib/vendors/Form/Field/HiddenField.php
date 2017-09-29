@@ -1,6 +1,10 @@
 <?php
 namespace Form\Field;
 
+/**
+ * Class HiddenField
+ * representant les champs Masqués des formulaires. 
+ */
 class HiddenField extends Field
 {
     public function buildWidget()
@@ -16,7 +20,6 @@ class HiddenField extends Field
         $widget .= '<input class="form-control" type="hidden" required="true" name="' . $this->name . '"  ';
         if (!empty($this->value))
         {
-            $salt = substr(md5(time()), 0, 23);
             $widget .= ' value="'. $salt .'"';
         }
         $widget .= '/>';

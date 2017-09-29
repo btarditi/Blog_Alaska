@@ -3,39 +3,56 @@ namespace Entity;
 
 use \BTFram\Entity;
 
+
 class User extends Entity
 {
     protected $id;
     protected $username;
     protected $password;
+    protected $email;
     protected $salt;
-    protected $role;
+    protected $inscription;  //user Role
     
-    const INVALIDE_USERNAME = 1;
-    const INVALIDE_PASSWORD =2;
-    const INVALIDE_ROLE = 3;
-    const INVALIDE_SALT = 4;
+    const USERNAME_INVALIDE = 1;
+    const PASSWORD_INVALIDE =2;
+    const ROLE_INVALIDE = 3;
+    const SALT_INVALIDE = 4;
+    const EMAIL_INVALIDE = 5;
+    const INSCRIPTION_INVALIDE = 6;
     
     public function isValid()
     {
-        return !(empty($this->username) || empty($this->password) || empty($this->role));
+        return !(empty($this->username) || empty($this->password) || empty($this->role) || empty($this->salt));
     }
     
     // GETTERS //
-    public function id() {
+    public function id()
+    {
         return $this->id;
     }
-    public function username() {
+    public function username()
+    {
         return $this->username;
     }
-    public function password() {
+    public function password()
+    {
         return $this->password;
     }
-    public function salt() {
+    public function email()
+    {
+        return $this->email;
+    }
+    public function salt()
+    {
         return $this->salt;
     }
-    public function role() {
+    public function role()
+    {
         return $this->role;
+    }
+    public function inscription()
+    {
+        return $this->inscription;
     }
     
     // SETTERS //
@@ -51,7 +68,7 @@ class User extends Entity
     {
         if (!is_string($username) || empty($username) || strlen($username) > 30)
         {
-            $this->erreurs[] = self::INVALIDE_USERNAME;
+            $this->erreurs[] = self::USERNAME_INVALIDE;
         }
         $this->username = $username;
     }
@@ -60,16 +77,24 @@ class User extends Entity
     {
         if (!is_string($password) || empty($password))
         {
-            $this->erreurs[] = self::INVALIDE_PASSWORD;
+            $this->erreurs[] = self::PASSWORD_INVALIDE;
         }
         $this->password = $password;
+    }
+    
+    public function setEmail($email)
+    {
+        if (!is_string($email) || empty($email) ) {
+            $this->erreurs[] = self::EMAIL_INVALIDE;
+        }
+        $this->email = $email;
     }
     
     public function setSalt($salt)
     {
         if (!is_string($salt) || empty($salt))
         {
-            $this->erreurs[] = self::INVALIDE_SALT;
+            $this->erreurs[] = self::SALT_INVALIDE;
         }
         $this->salt = $salt;
     }
@@ -78,8 +103,20 @@ class User extends Entity
     {
         if (!is_string($role) || empty($role))
         {
-            $this->erreurs[] = self::INVALIDE_ROLE;
+            $this->erreurs[] = self::ROLE_INVALIDE;
         }
         $this->role = $role;
+    }
+    
+    public function setInscription( \DateTime $inscription)
+    {
+        if( !empty( $inscription ) ) {
+            $this->inscription = $inscription;
+        }
+        else
+        {
+            $this->erreurs[] = self::INSCRIPTION_INVALIDE;
+        }
+        return $this;
     }
 }

@@ -3,7 +3,11 @@ namespace Model;
  
 use \BTFram\Manager;
 use \Entity\Episode;
- 
+
+/**
+ * Class EpisodeManager
+ * Gestion des episodes. 
+ */
 abstract class EpisodeManager extends Manager
 {
     
@@ -48,6 +52,12 @@ abstract class EpisodeManager extends Manager
 */
     abstract public function getUnique($id);
     
+/**
+     * Méthode retournant un épisode précis.
+     * @return array La liste de tous les épisodes. Chaque entrée est une instance de Episode.
+     */
+    abstract public function getAll();
+
 /**
    * Méthode renvoyant le nombre d'épisode total.
    * @return int

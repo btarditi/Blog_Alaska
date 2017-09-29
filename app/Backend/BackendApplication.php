@@ -20,7 +20,7 @@ class BackendApplication extends Application
     }
     else
     {
-      $controller = new Modules\Connexion\ConnexionController($this, 'Connexion', 'login');
+    $controller = new Modules\Connexion\ConnexionController($this, 'Connexion', 'login');
     }
 
     $controller->execute();

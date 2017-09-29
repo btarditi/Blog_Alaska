@@ -46,7 +46,7 @@ class EpisodeController extends BackController
     public function executeShow(HTTPRequest $request)
     {
         $episode = $this->managers->getManagerOf('Episode')->getUnique($request->getData('id'));
-        
+        $commentaireId = $request->getData('id');
         if (empty($episode)) {
             $this->app->HttpResponse()->redirect404();
         }
@@ -55,7 +55,6 @@ class EpisodeController extends BackController
         $this->page->addVar('titre', $episode->titre());
         $this->page->addVar('episode', $episode);
         $this->page->addVar('commentaire', $this->managers->getManagerOf('Commentaire')->getListOf($episode->id()));
-
     }
     
 /**

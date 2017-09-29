@@ -2,20 +2,67 @@
 namespace Model;
  
 use \Entity\Commentaire;
+
+/**
+ * Class CommentaireManagerPDO
+ * Gestion des requetes commentaire. 
+ */
  
 class CommentaireManagerPDO extends CommentaireManager
 {
     protected function insert(Commentaire $commentaire)
     {
-        $q = $this->dao->prepare('INSERT INTO commentaires SET id_episode = :episodeId, auteur = :auteur, contenu = :contenu, date = NOW()');
+        $q = $this->dao->prepare('INSERT INTO commentaires SET episodeId = :episodeId, auteur = :auteur, contenu = :contenu, date = NOW(), flag = 0');
 
         $q->bindValue(':episodeId', $commentaire->episodeId(), \PDO::PARAM_INT);
-        $q->bindValue(':auteur', $comentaire->auteur());
-        $q->bindValue(':contenu', $comentaire->contenu());
+        $q->bindValue(':auteur', $commentaire->auteur());
+        $q->bindValue(':contenu', $commentaire->contenu());
 
         $q->execute();
 
-        $commentaire->setEpisodeId($this->dao->lastInsertId());
+        
+    }
+    
+    public function getList($debut = -1, $limite = -1)
+    {
+        $sql = "SELECT * FROM commentaires ";
+        if($debut != -1 || $limite != -1)
+        {
+            $sql .= ' LIMIT ' . (int) $limite . ' OFFSET ' . (int) $debut;
+        }
+        $requete = $this->dao->query($sql);
+        $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Commentaire');
+        $listCommentaire = $requete->fetchAll();
+        foreach ($listCommentaire as $commentaire)
+        {
+            $commentaire->setDateCreate(new \DateTime($commentaire->dateCreate()));
+        }
+        $requete->closeCursor();
+        return $listCommentaire;
+    }
+    
+    protected function update(Commentaire $commentaire)
+    {
+        $q = $this->dao->prepare('UPDATE commentaires SET episodeId = :episodeId, auteur = :auteur, contenu = :contenu, flag = :flag WHERE id = :id');
+        
+        $q->bindValue(':episodeId', $commentaire->episodeId());
+        $q->bindValue(':auteur', $commentaire->auteur());
+        $q->bindValue(':contenu', $commentaire->contenu());
+        $q->bindValue(':flag', $commentaire->flag());
+        
+        $q->bindValue(':id', $commentaire->id(), \PDO::PARAM_INT);
+
+        $q->execute();
+    }  
+    
+    public function delete($id)
+    {
+        $this->dao->exec('DELETE FROM commentaires WHERE id = '.(int) $id);
+    }
+    
+    public function deleteFromEpisode($episodeId)
+    {
+        $this->dao->exec('DELETE FROM commentaires WHERE episodeId = '.(int) $episodeId);
     }
     
     public function getListOf($episodeId)
@@ -25,18 +72,15 @@ class CommentaireManagerPDO extends CommentaireManager
             throw new \InvalidArgumentException('L\'identifiant de l\'épisode passé doit être un nombre entier valide');
         }
 
-        $q = $this->dao->prepare('SELECT id, id_episode, auteur, contenu, date FROM commentaires WHERE id_episode = :episodeId');
+        $q = $this->dao->prepare('SELECT * FROM commentaires WHERE episodeId = :episodeId');
         $q->bindValue(':episodeId', $episodeId, \PDO::PARAM_INT);
         $q->execute();
 
         $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Commentaire');
 
-        $commentaires = $q->fetchAll();
-        foreach ($commentaires as $commentaire)
-        {
-            $commentaire->setDate(new \DateTime($commentaire->date()));
-        }
-        return $commentaires;
+        $commentaire = $q->fetchAll();
+        
+        return $commentaire;
     }
   
     public function getUnique($id)
@@ -56,38 +100,9 @@ class CommentaireManagerPDO extends CommentaireManager
         $requete = $this->dao->query($sql);
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Commentaire');
         $listCommentaire = $requete->fetchAll();
-//        foreach ($commentsList as $comment)
-//        {
-//            $comment->setDateCreate(new \DateTime($comment->setDateCreate()));
-//        }
+
         $requete->closeCursor();
         return $listCommentaire;
-    }
-    
-    public function delete($id)
-    {
-        $this->dao->exec('DELETE FROM commentaires WHERE id = '.(int) $id);
-    }
-  
-    public function deleteFromEpisode($episodeId)
-    {
-        $this->dao->exec('DELETE FROM commentaires WHERE id_episode = '.(int) $episodeId);
-    }
-    
-    protected function update(Commentaire $commentaire)
-    {
-        $q = $this->dao->prepare('UPDATE commentaires SET auteur = :auteur, contenu = :contenu WHERE id = :id');
-
-        $q->bindValue(':auteur', $commentaire->auteur());
-        $q->bindValue(':contenu', $commentaire->contenu());
-        $q->bindValue(':id', $commentaire->id(), \PDO::PARAM_INT);
-
-        $q->execute();
-    }  
-    
-    public function deleteFromUser($auteur)
-    {
-        $this->dao->exec('DELETE FROM commentaires WHERE auteur ='.  $auteur);
     }
     
     public function count()
@@ -95,5 +110,20 @@ class CommentaireManagerPDO extends CommentaireManager
         return $this->dao->query('SELECT COUNT(*) FROM commentaires')->fetchColumn();
     }
   
+    public function countCommentflag()
+    {
+        return $this->dao->query('SELECT COUNT(*) FROM commentaires WHERE flag <> 0 ')->fetchColumn();
+    }
+    
+    public function getListOfCommentflag()
+    {
+        $sql = 'SELECT * FROM commentaires WHERE flag <> 0';
+        
+        $requete = $this->dao->query($sql);
+        $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Commentaire');
+        $listCommentFlag = $requete->fetchAll();
+        $requete->closeCursor();
+        return $listCommentFlag;
+    }
 }
   

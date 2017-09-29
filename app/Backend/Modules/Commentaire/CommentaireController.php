@@ -1,7 +1,7 @@
 <?php
 namespace App\Backend\Modules\Commentaire;
 use \Entity\Commentaire;
-use \Form\FormBuilder\CommentFormBuilder;
+use \Form\FormBuilder\UpdateCommentFormBuilder;
 use \BTFram\BackController;
 use \BTFram\HTTPRequest;
 use \Form\FormHandler;
@@ -11,7 +11,6 @@ class CommentaireController extends BackController
     // UPDATE A COMMENT //
     public function executeUpdate(HTTPRequest $request)
     {
-
         $this->processForm($request);
         $this->page->addVar('titre', 'Modification d\'un commentaire');
     }
@@ -28,14 +27,14 @@ class CommentaireController extends BackController
         if ($request->method() == 'POST')
         {
             $commentaire = new Commentaire([
-                'id_episode' => $request->getData('id'),
+                'episodeId' => $request->getData('episodeId'),
                 'auteur' => $request->postData('auteur'),
                 'contenu' => $request->postData('contenu'),
                 'flag' => $request->postData('flag'),
             ]);
             if ($request->getExists('id'))
             {
-                $commentaire->setId($request->getData('id'));
+                $commentaire->setEpisodeId($request->getData('id'));
             }
         }
         else
@@ -50,7 +49,7 @@ class CommentaireController extends BackController
                 $commentaire = new Commentaire();
             }
         }
-        $formBuilder = new CommentFormBuilder($commentaire);
+        $formBuilder = new UpdateCommentFormBuilder($commentaire);
         $formBuilder->build();
         $form = $formBuilder->form();
         $formHandler = new FormHandler($form, $this->managers->getManagerOf('Commentaire'), $request);

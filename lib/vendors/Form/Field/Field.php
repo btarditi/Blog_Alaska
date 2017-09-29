@@ -1,6 +1,11 @@
 <?php
 namespace Form\Field;
 
+/**
+ * Class Field
+ * representant les champs des formulaires. 
+ */
+
 abstract class Field
 {
   // On utilise le trait Hydrator afin que nos objets Field puissent être hydratés
@@ -9,10 +14,11 @@ abstract class Field
   protected $errorMessage;
   protected $label;
   protected $name;
-  protected $validators = [];
+  protected $validator = [];
   protected $value;
+  protected $class;
  
-  public function __construct(array $options = [])
+  public function __construct(array $options = [])  // recupere liste des attrib et les hydrate
   {
     if (!empty($options))
     {
@@ -20,11 +26,11 @@ abstract class Field
     }
   }
  
-  abstract public function buildWidget();
+  abstract public function buildWidget();  // renvoyer le code HTML du champ.
  
-  public function isValid()
+  public function isValid()  // savoir si le champ est valide ou non
   {
-    foreach ($this->validators as $validator)
+    foreach ($this->validator as $validator)
     {
       if (!$validator->isValid($this->value))
       {
@@ -36,6 +42,7 @@ abstract class Field
     return true;
   }
  
+//  Getter
   public function label()
   {
     return $this->label;
@@ -51,16 +58,17 @@ abstract class Field
     return $this->name;
   }
  
-  public function validators()
+  public function validator()
   {
-    return $this->validators;
+    return $this->validator;
   }
  
   public function value()
   {
     return $this->value;
   }
- 
+
+//  Setter
   public function setLabel($label)
   {
     if (is_string($label))
@@ -87,13 +95,13 @@ abstract class Field
     }
   }
  
-  public function setValidators(array $validators)
+  public function setValidators(array $validator)
   {
-    foreach ($validators as $validator)
+    foreach ($validator as $validator)
     {
-      if ($validator instanceof Validator && !in_array($validator, $this->validators))
+      if ($validator instanceof Validator && !in_array($validator, $this->validator))
       {
-        $this->validators[] = $validator;
+        $this->validator[] = $validator;
       }
     }
   }

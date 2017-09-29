@@ -2,14 +2,20 @@
 namespace Model;
  
 use \Entity\Episode;
- 
+use DateTime;
+
+/**
+ * Class EpisodeManagerPDO
+ * Gestion des requetes episodes. 
+ */
 class EpisodeManagerPDO extends EpisodeManager
 {
     
     protected function insert(Episode $episode)
     {
-        $requete = $this->dao->prepare('INSERT INTO episodes SET auteur = :auteur, titre = :titre, contenu = :contenu, dateAjout = NOW(), dateModif = NOW()');
+        $requete = $this->dao->prepare('INSERT INTO episodes SET id = :id, auteur = :auteur, titre = :titre, contenu = :contenu, dateAjout = NOW(), dateModif = NOW()');
     
+        $requete->bindValue(':id', $episode->id());
         $requete->bindValue(':titre', $episode->titre());
         $requete->bindValue(':auteur', $episode->auteur());
         $requete->bindValue(':contenu', $episode->contenu());
@@ -51,11 +57,26 @@ class EpisodeManagerPDO extends EpisodeManager
 
         if ($episode = $requete->fetch())
         {
-            $episode->setDateAjout(new \DateTime($episode->dateAjout()));
-            $episode->setDateModif(new \DateTime($episode->dateModif()));
+            $episode->setDateAjout(new DateTime($episode->dateAjout()));
+            $episode->setDateModif(new DateTime($episode->dateModif()));
             return $episode;
         }
         return null;
+    }
+    
+    public function getAll()
+    {
+        $sql = 'SELECT * FROM episodes';
+        $requete = $this->dao->query($sql);
+        $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Episode');
+        $listEpisode = $requete->fetchAll();
+        foreach ($listEpisode as $episode)
+        {
+            $episode->setDateCreate(new \DateTime($episode->dateCreate()));
+            $episode->setLastModif(new \DateTime($episode->lastModif()));
+        }
+        $requete->closeCursor();
+        return $listEpisode;
     }
 
     public function count()

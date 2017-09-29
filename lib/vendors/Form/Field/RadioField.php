@@ -1,6 +1,10 @@
 <?php
 namespace Form\Field;
 
+/**
+ * Class RadioField
+ * representant les bouttons radio des formulaires. 
+ */
 class RadioField extends Field
 {
     public function buildWidget()

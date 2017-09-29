@@ -1,6 +1,12 @@
 <?php
 namespace Model;
+
 use \Entity\User;
+
+/**
+ * Class UserManagerPDO
+ * Gestion des requetes utilisateur. 
+ */
 class UserManagerPDO extends UserManager
 {
     /**
@@ -10,7 +16,7 @@ class UserManagerPDO extends UserManager
      */
     public function getUnique( $id)
     {
-        $q = $this->dao->prepare('SELECT id, username, password, salt, role FROM users WHERE id = :id');
+        $q = $this->dao->prepare('SELECT * FROM users WHERE id = :id');
         $q->bindValue(':id', (int) $id, \PDO::PARAM_INT);
         $q->execute();
         $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
@@ -35,7 +41,7 @@ class UserManagerPDO extends UserManager
      */
     public function getAll()
     {
-        $q = $this->dao->query('SELECT id, username, password, salt, role FROM users ORDER BY role, username ');
+        $q = $this->dao->query('SELECT * FROM users ORDER BY role, username ');
         $q->execute();
         $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
         return $users = $q->fetchAll();
@@ -54,11 +60,14 @@ class UserManagerPDO extends UserManager
      */
     protected function insert( User $user)
     {
-        $q = $this->dao->prepare('INSERT INTO users SET username = :username, password = :password, salt = :salt, role = :role');
+        $q = $this->dao->prepare('INSERT INTO users SET username = :username, password = :password, email = :email, salt = :salt, role = :role, inscription = NOW()');
+        
         $q->bindValue(':username', $user->username());
+        $q->bindValue(':email', $user->email());
         $q->bindValue(':password', $user->password());
         $q->bindValue(':salt', $user->salt());
         $q->bindValue(':role', $user->role());
+        
         $q->execute();
         $user->setId($this->dao->lastInsertId());
     }
@@ -68,12 +77,16 @@ class UserManagerPDO extends UserManager
      */
     protected function update( User $user)
     {
-        $q = $this->dao->prepare('UPDATE users SET username = :username, password = :password, salt = :salt, role = :role  WHERE id = :id');
+        $q = $this->dao->prepare('UPDATE users SET username = :username, password = :password, email = :email, salt = :salt, role = :role, inscription = NOW()  WHERE id = :id');
+        
+        $q->bindValue(':id', $user->id());
         $q->bindValue(':username', $user->username());
         $q->bindValue(':password', $user->password());
+        $q->bindValue(':email', $user->email());
         $q->bindValue(':salt', $user->salt());
         $q->bindValue(':role', $user->role());
-        $q->bindValue(':id', $user->id());
+        $q->bindValue(':inscription', $user->inscription());
+       
         $q->execute();
     }
     /**
@@ -84,4 +97,48 @@ class UserManagerPDO extends UserManager
     {
         $this->dao->exec('DELETE FROM users WHERE id = '.(int) $id);
     }
+    
+    /**
+     * change user role
+     * @param int $id
+     */
+    public function switchUserRole( $id )
+    {
+        $user = $this->getUnique($id);
+        if($user->role() == 'ADMIN')
+        {
+            $user->setRole('USER');
+            $this->save($user);
+        }
+        elseif($user->role() == 'USER')
+        {
+            $user->setRole('ADMIN');
+            $this->save($user);
+            $_SESSION['role'] = 'ADMIN';
+        }
+    }
+    /**
+     * Check if exist a user in BDD
+     * @param object $user
+     * @return mixed
+     */
+    public function checkUserForRegister($id, $username)
+    {
+        $q = $this->dao->prepare('SELECT * FROM users WHERE username = :username AND id != :id');
+        $q->bindValue('username', $username);
+        $q->bindValue('id', $id);
+        $q->execute();
+        $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
+        
+        if(empty($q->fetch()))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+        
 }

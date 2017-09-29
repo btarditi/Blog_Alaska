@@ -1,10 +1,27 @@
-<h2 class="text-center"><?= $titre ?></h2>
+<hr>
+<h2 class="text-center"><?= $titre ?> </h2>
+<hr>
+
+<!-- Affichage des erreurs si il y en a-->
+<?php if (isset($erreurs)) : ?>
+    <div class="row">
+        <div class="alert alert-danger text-center">
+            <strong><?= $erreurs ?></strong>
+        </div>
+    </div>
+<?php endif; ?>
 
 <div class="well">
-    <form class="form-horizontal" action="" method="post">
+    <form action="" method="post" class="form-horizontal" >
 
         <?= $form ?>
 
-        <p><input class="btn btn-success" type="submit" value="Valider"></p>
+        <br>
+
+        <div class="form-group">
+            <div class="col-sm-9 col-sm-offset-3">
+                <input type="submit" class="btn btn-success btn-block" value="Valider" />
+            </div>
+        </div>
     </form>
 </div>

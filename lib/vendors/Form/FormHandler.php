@@ -4,6 +4,11 @@ namespace Form;
 use \BTFram\Manager;
 use \BTFram\HTTPRequest;
 
+/**
+ * Class FormHandler
+ * gestionnaire de formulaire
+ */
+
 class FormHandler
 {
     protected $form;
@@ -16,6 +21,8 @@ class FormHandler
         $this->setManager($manager);
         $this->setRequest($request);
     }
+    
+// Traitement du formulaire.
     public function process()
     {
         if($this->request->method() == 'POST' && $this->form->isValid())
@@ -25,6 +32,8 @@ class FormHandler
         }
         return false;
     }
+    
+// Setter
     public function setForm(Form $form)
     {
         $this->form = $form;

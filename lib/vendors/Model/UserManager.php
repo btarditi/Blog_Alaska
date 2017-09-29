@@ -1,20 +1,27 @@
 <?php
 namespace Model;
+
 use \Entity\User;
 use \BTFram\Manager;
+
+/**
+ * Class UserManager
+ * Gestion des utilisateurs. 
+ */
 abstract class UserManager extends Manager
 {
     /**
-     * Insert a User in the BDD
-     * @param $user Users The user to insert
+     * Insert un User dans la BDD
+     * @param $user User The user to insert
      * @return void
      */
     abstract protected function insert(User $user);
+    
     /**
-     * Save the user in the BDD
-     * @param Users $user
+     * Save un User dans la BDD
+     * @param User $user
      * @return void
-     * @internal param Users $user L'utilisateur à enregistrer
+     * @internal param User $user L'utilisateur à enregistrer
      * @see self::insert()
      * @see self::update()
      */
@@ -26,11 +33,11 @@ abstract class UserManager extends Manager
         }
         else
         {
-            throw new \RuntimeException('L\'utilisateur doit être validée pour être enregistrée');
+            throw new \RuntimeException('L\'utilisateur doit être validé pour être enregistrée');
         }
     }
     /**
-     * Return a user matching the supplied id..
+     * Return un user par id..
      * @param integer $id The user id.
      * @return \Entity\Users |throw an exception if no matching user is found
      */
@@ -63,4 +70,18 @@ abstract class UserManager extends Manager
      * @return void
      */
     abstract public function delete($id);
+    
+    /**
+     * Méthode permettant d'intervertir le rôle de l'utilisateur entre USER  || ADMIN
+     * @param $id integer User Id
+     * @return void
+     */
+    abstract public function switchUserRole($id);
+    
+    /**
+     * Méthode permettant de verifier si l'utilisateur est dans la BDD
+     * @param $id integer User Id
+     * @return void
+     */
+    abstract public function checkUserForRegister($id, $username);
 }

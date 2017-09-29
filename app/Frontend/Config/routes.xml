@@ -14,20 +14,19 @@
      
     <!-- ******* ### Episode ### ******** -->
     <!-- Page for ONE Episode -->
-    <route url="/episode-([0-9]+)\.html" module="Episode" action="show" vars="id"/><!-- OK -->
+    <route url="/episode/episode-([0-9]+)\.html" module="Episode" action="show" vars="id"/><!-- OK -->
     <!-- Page for ALL Episode -->
     <route url="/episode/all.html" module="Episode" action="all" />
     <!-- Page for the last 5 Episode-->
     <route url="/episode/last.html" module="Episode" action="last" />
 
 
-    <!-- ******* ### MODULE Users ### ******** -->
-    <!--Connexion user-->
-   
+    <!-- ******* ### MODULE COMMENTS ### ******** -->
 
-    <!--REGISTER a user-->
-    <route url="/user/register.html" module="User" action="register"  />
-    <!--LOGIN-->
-    <route url="/connexion/user.html" module="User" action="register" /><!-- OK -->
-          
+        <!-- ACTION => Insert || MODULE => Comments-->
+    <route url="/commentaire/insert-commentaire-([0-9]+)\.html" module="Commentaire" action="insert" vars="id" />
+
+        <!-- ACTION => Flag || MODULE => Comments-->
+    <route url="/commentaire/flag-comment-([0-9]+)\.html" module="Commentaire" action="flag" vars="id" />  
+
 </routes>

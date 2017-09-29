@@ -7,6 +7,10 @@ use \Form\Field\StringField;
 use \Form\Validator\MaxLengthValidator;
 use \Form\Validator\NotNullValidator;
 
+/**
+ * Class ConnectFormBuilder
+ * Constructeur du formulaire de Connexion 
+ */
 class ConnectFormBuilder extends FormBuilder
 {
     public function build()

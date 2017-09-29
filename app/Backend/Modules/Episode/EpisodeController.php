@@ -3,44 +3,35 @@ namespace App\Backend\Modules\Episode;
  
 use \BTFram\BackController;
 use \BTFram\HTTPRequest;
-use \BTFram\Entity;
 use \Entity\Episode;
-use \Entity\Commentaire;
-use \Entity\User;
-use \Form\Form;
-use \Form\FormBuilder;
-use \Form\FormBuilder\EpisodeFormBuilder;
 use \Form\FormHandler;
-use \Form\FormBuilder\CommentsFormBuilder;
-use \Form\FormBuilder\RegisterFormBuilder;
+use \Form\FormBuilder\EpisodeFormBuilder;
 
 class EpisodeController extends BackController
 {
 // ***ADMIN index Page****  
-    public function executeIndex(HTTPRequest $request)
+    public function executeAdmin(HTTPRequest $request)
     {
-        
-       if($this->app->user()->isAuthenticated()){
-            $this->page->addVar('titre', 'Gestion des episodes');
-           
-            $episodeManager = $this->managers->getManagerOf('Episode');
+        if($this->app->user()->isAuthenticated()  && $this->app->user()->isAdmin())
+        {
+            $episodeManager = $this->managers->getManagerOf('Episode'); 
             $commentaireManager = $this->managers->getManagerOf('Commentaire');
             $userManager = $this->managers->getManagerOf('User');
-           
+
+            $this->page->addVar('titre', 'Gestion des episodes');
             $this->page->addVar('nbEpisode', $episodeManager->count());
             $this->page->addVar('listEpisode', $episodeManager->getList());
             $this->page->addVar('listCommentaire', $commentaireManager->getAll());
             $this->page->addVar('nbCommentaire', $commentaireManager->count());
+            $this->page->addVar( 'nbCommentaireFlag', $commentaireManager->countCommentFlag() );
             $this->page->addVar('listUser', $userManager->getAll());
             $this->page->addVar('nbUser', $userManager->count());
-    }
-        else {
+        }
+        else
+        {
             $this->app->user()->setFlash('Désolé, vous n\'avez pas l\accréditaion nécessaire pour accéder à l\'espace d\'administration');
         }
-    
-    
-    
-    }    
+}    
   
 /* 
 Episode
@@ -79,48 +70,42 @@ Episode
     }
 
 
-            // All Process Form //
-    public function processFormEpisode(HTTPRequest $request)
+    // Process Form //
+    public function processFormEpisode( HTTPRequest $request )
     {
-        if ($request->method() == 'POST')
+        if( $request->method() == 'POST' )
         {
-            $episode = new Episode([
-                'auteur' => $request->postData('auteur'),
-                'titre' => $request->postData('titre'),
-                'contenu' => strip_tags($request->postData('contenu'))
-            ]);
-            if ($request->postExists('id'))
+            $episode = new Episode( [
+                 'auteur' =>  'Bruno',
+                 'titre' => $request->postData( 'titre' ),
+                 'contenu' => $request->postData( 'contenu' ),
+             ] );
+            if( $request->getExists( 'id' ) )
             {
-                $episode->setId($request->postData('id'));
+                $episode->setId( $request->getData( 'id' ) );
             }
         }
         else
         {
-// L'identifiant de la news est transmis si on veut la modifier
-            if ($episode->getExists('id'))
+            if( $request->getExists( 'id' ) )
             {
-                $episode = $this->managers->getManagerOf('Episode')->getUnique($request->getData('id'));
+                $episode = $this->managers->getManagerOf( 'Episode' )->getUnique( $request->getData( 'id' ) );
             }
             else
             {
-                $episode = new Episode;
+                $episode = new Episode();
             }
         }
-        $formBuilder = new episodeFormBuilder($episode);
+        $formBuilder = new EpisodeFormBuilder( $episode );
         $formBuilder->build();
- 
-        $form = $formBuilder->form();
- 
-        $formHandler = new FormHandler($form, $this->managers->getManagerOf('Episode'), $request);
- 
-        if ($formHandler->process())
-        {
-            $this->app->user()->setFlash($episode->isNew() ? 'L\'épisode a bien été ajouté !' : 'L\'épisode a bien été modifié !');
- 
-            $this->app->httpResponse()->redirect('/admin/index.html');
+        $form        = $formBuilder->form();
+        $formHandler = new FormHandler( $form, $this->managers->getManagerOf( 'Episode' ), $request );
+        if( $formHandler->process() ) {
+            $this->app->user()->setFlash($episode->isNew() ? 'L\'épisode a bien été ajouté !' : 'L\'épisode a bien été modifié !' );
+            $this->app->httpResponse()->redirect( '/admin/index.html' );
         }
-        $this->page->addVar('episode', $episode);
-        $this->page->addVar('form', $form->createView());
+        $this->page->addVar( 'episode', $episode );
+        $this->page->addVar( 'form', $form->createView() );
     }
     
 }

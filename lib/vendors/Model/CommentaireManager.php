@@ -3,7 +3,11 @@ namespace Model;
  
 use \BTFram\Manager;
 use \Entity\Commentaire;
- 
+
+/**
+ * Class CommentaireManager
+ * Gestion des commentaires. 
+ */
 abstract class CommentaireManager extends Manager
 {
   
@@ -32,6 +36,13 @@ abstract class CommentaireManager extends Manager
   }
     
 /**
+  * Méthode permettant d'ajouter un commentaire.
+  * @param $comment Le commentaire à ajouter
+  * @return void
+  */
+    abstract protected function update(Commentaire $commentaire);
+    
+/**
    * Méthode permettant de supprimer un commentaire.
    * @param $id L'identifiant du commentaire à supprimer
    * @return void
@@ -46,13 +57,6 @@ abstract class CommentaireManager extends Manager
     abstract public function deleteFromEpisode($episodeId);
 
 /**
-     * Remove all comments for a User
-     * @param $userId Comments The user id
-     * @return void
-     */
-    abstract public function deleteFromUser($userId);
-
-/**
    * Méthode permettant de récupérer une liste de commentaires.
    * @param $news La news sur laquelle on veut récupérer les commentaires
    * @return array
@@ -60,33 +64,34 @@ abstract class CommentaireManager extends Manager
     abstract public function getListOf($episodeId);
     
 /**
-   * Méthode permettant d'ajouter un commentaire.
-   * @param $comment Le commentaire à ajouter
-   * @return void
-   */
-    abstract protected function update(Commentaire $commentaire);
-    
-/**
    * Méthode permettant d'obtenir un commentaire spécifique.
    * @param $id L'identifiant du commentaire
    * @return Comment
    */
     abstract public function getUnique($id);
-    /**
+
+/**
      * Find all Comments for all Chapters
      * @return Comments
      */
     abstract public function getAll();
-    /**
-     * Méthode permettant de récupérer une liste de commentaires.
-     * @param $chapters Comments Le chapitre sur lequelle on veut récupérer les commentaires
-     * @return array
-     */
     
 /**
      * Méthode permettant de récupérer le nombre totale de commentaires.
      * @return array
      */
     abstract public function count();
+    
+/**
+     * Méthode permettant de récupérer le nombre commentaires signalé.
+     * @return array
+     */
+    abstract public function countCommentflag();
+
+/**
+     * Get all signaled comments
+     * @return Comments
+     */
+    abstract public function getListOfCommentflag();
     
 }

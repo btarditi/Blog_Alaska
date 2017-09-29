@@ -1,6 +1,10 @@
 <?php
 namespace Form\Field;
 
+/**
+ * Class PasswordField
+ * representant les champs Mot de passe des formulaires. 
+ */
 class PasswordField extends Field
 {
     public function buildWidget()
@@ -14,6 +18,10 @@ class PasswordField extends Field
         $widget .= '<label class="col-sm-3 control-label" for="' . $this->name . '" >' . $this->label . '</label>';
         $widget .= '<div class="col-sm-9">';
         $widget .= '<input class="form-control" type="password" required="true" name="' . $this->name . '"  ';
+        if (!empty($this->value))
+        {
+            $widget .= ' value="'.htmlspecialchars($this->value).'"';
+        }
         if (!empty($this->maxLength))
         {
             $widget .= ' maxlength="'.$this->maxLength.'"';

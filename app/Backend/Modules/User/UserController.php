@@ -5,6 +5,7 @@ use \Entity\User;
 use \BTFram\BackController;
 use \BTFram\HTTPRequest;
 use \Form\FormHandler;
+use \Form\FormBuilder\UserFormBuilder;
 use \Form\FormBuilder\RegisterFormBuilder;
 
 class UserController extends BackController
@@ -12,56 +13,106 @@ class UserController extends BackController
     // USERS //
     public function executeInsert(HTTPRequest $request)
     {
-        $this->processFormUser($request);
+        $this->processFormRegister($request);
         $this->page->addVar('titre', 'Ajout d\'un utilisateur');
     }
     public function executeUpdate(HTTPRequest $request)
     {
-        $this->processFormUser($request);
+        $this->processFormRegister($request);
         $this->page->addVar('titre', 'Modification d\'un utilisateur');
     }
     public function executeDelete(HTTPRequest $request)
     {
-        $userManager = $this->managers->getManagerOf('User');
-        $userManager->delete($request->getData('id'));
-        $this->app->user()->setFlash('L\'utilisateur et ses commentaires à bien été supprimer.');
+        $this->managers->getManagerOf('User')->delete($request->getData('id'));
+        $this->app->user()->setFlash('L\'utilisateur et ses commentaires ont bien été supprimer.');
         // redirection vers l'Admin
         $this->app->httpResponse()->redirect('/admin/index.html');
     }
-    public function processFormUser(HTTPRequest $request)
+    public function executeSwitchRole(HTTPRequest $request)
     {
-        if ($request->method() == 'POST') {
+        $manager = $this->managers->getManagerOf('User');
+        if($request->getExists('id'))
+        {
+            $manager->switchUserRole($request->getData('id'));
+            $this->app()->httpResponse()->redirect('/admin/index.html');
+        }
+        else
+        {
+            $this->app->user()->setFlash('Aucun identifiant n\'a été transmis !!!');
+            $this->app->httpResponse()->redirect404();
+        }
+        if($_SESSION['role'] == 'USER')
+        {
+            $_SESSION['role'] = 'ADMIN';
+        }
+        elseif($_SESSION['role'] == 'ADMIN')
+        {
+            $_SESSION['role'] = 'USER';
+        }
+    }
+    public function processFormRegister(HTTPRequest $request)
+    {
+        if ($request->method() == 'POST')
+        {
             $user = new User([
                 'username' => $request->postData('username'),
                 'password' => $request->postData('password'),
-                'role' => $request->postData('role'),
-                'salt' => $request->postData('salt')
+                'email' => $request->postData( 'email'),
             ]);
-            $user->setPassword(sha1($user->password() . $user->salt()));
-            if ($request->getExists('id')) {
-                $user->setId($request->getData('id'));
+            // On vérifie que le username est disponible
+            $userBDD = $this->managers->getManagerOf('User')
+                ->getByUsername($request->postData('username'));
+            $username = $request->postData('username');
+            // Si le username n'existe pas en BDD
+            if(isset($username) && !empty($username)) 
+            {
+                if($user->isNew())
+                {
+                    // On force le role utilisateur à USER
+                    $user->setRole('USER');
+                    // On génère une clé de salage
+                    $user->setSalt(substr(md5(time()), 0, 23));
+                }
+                $mdpForm = $request->postData('password');
+                if(isset($mdpForm) && !empty($mdpForm))
+                {
+                    $pass = sha1($mdpForm . $user->salt());
+                    $user->setPassword($pass);
+                }
+                else
+                {
+                    $erreurs = 'Veuillez entrez un mot de passe valide !';
+                    $this->app->httpResponse()->redirect( '/admin/user-insert.html' );
+                }
+            }
+            else // Le username est présent dans la BDD
+            {
+                $erreurs = 'Ce nom d\'utilisateur n\'est plus disponible !';
+                $this->app->httpResponse()->redirect( '/admin/user-insert.html' );
             }
         }
         else
         {
-            // L'identifiant de l'utilisateur est transmis si on veut la modifier
-            if ($request->getExists('id')) {
-                $user = $this->managers->getManagerOf('User')->getUnique($request->getData('id'));
-            }
-            else
-            {
-                $user = new User();
-                $user->setSalt(substr(md5(time()), 0, 23));
-            }
+            $user = new User();
         }
         $formBuilder = new RegisterFormBuilder($user);
         $formBuilder->build();
         $form = $formBuilder->form();
         $formHandler = new FormHandler($form, $this->managers->getManagerOf('User'), $request);
-        if ($formHandler->process()) {
-            $this->app->user()->setFlash($user->isNew() ? 'L\'utilisateur a bien été ajoutée !' : 'L\'utilisateur a bien été modifiée !');
-            $this->app->httpResponse()->redirect('/admin/index.html');
+        if ($formHandler->process())
+        {
+            $this->app->user()->setFlash($user->isNew() ? 'Félicitation vous faite maintenant partit de l\'aventure !' : 'L\'utilisateur à bien été modifié !');
+            $user->isNew() ? $this->app->httpResponse()->redirect('/') : $this->app->httpResponse()->redirect('/admin/index.html#users');
         }
+        // Si une erreur a été générer, on l'envoie à la page
+        if(isset($erreurs)) {
+            $this->page->addVar( 'erreurs', $erreurs );
+        }
+//        $this->page->addVar( 'user', $user );
+        // On envoie le formulaire à la page
         $this->page->addVar('form', $form->createView());
-    }
 }
+    
+}
+    
+
