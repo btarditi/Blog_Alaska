@@ -22,14 +22,7 @@
                 </div>
             </div>
             
-            <!-- TinyMCE -->
-            <script src="<?= $this->app->config()->get('ROOT') . '/lib/TinyMCE/tinymce.min.js'?>"></script>
-
-            <script>
-                tinymce.init({
-                    selector: 'textarea'
-                });
-            </script>
+            
             
         </form>
     </div>

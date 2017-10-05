@@ -28,7 +28,7 @@ class RegisterFormBuilder extends FormBuilder
             ->add(new EmailField([
             'label' => 'Email :',
             'name' => 'email',
-            'validators' => [
+            'validator' => [
                 new NotNullValidator('Merci de spécifier une adresse email !'),
                 ],
             ]))

@@ -49,7 +49,7 @@
          <?php foreach ($commentaire as $commentaire) : ?>
              <div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 panel panel-default comment">
                  <div class="panel-heading">
-                     Posté par <strong><?= $commentaire->auteur() ?></strong>
+                     Posté par <strong><?= htmlspecialchars($commentaire->auteur()) ?></strong>
                      <span class="pull-right" >
                          <a class="btn btn-xs btn-warning" title="Signaler le commentaire" href="/commentaire/flag-comment-<?= $commentaire->id() ?>.html"><span class="glyphicon glyphicon-flag"></span></a>
                      </span>

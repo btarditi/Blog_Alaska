@@ -76,7 +76,7 @@ Episode
         if( $request->method() == 'POST' )
         {
             $episode = new Episode( [
-                 'auteur' =>  'Bruno',
+                 'auteur' =>  'Jean Forteroche',
                  'titre' => $request->postData( 'titre' ),
                  'contenu' => $request->postData( 'contenu' ),
              ] );
@@ -96,10 +96,12 @@ Episode
                 $episode = new Episode();
             }
         }
+        
         $formBuilder = new EpisodeFormBuilder( $episode );
         $formBuilder->build();
         $form        = $formBuilder->form();
         $formHandler = new FormHandler( $form, $this->managers->getManagerOf( 'Episode' ), $request );
+        
         if( $formHandler->process() ) {
             $this->app->user()->setFlash($episode->isNew() ? 'L\'épisode a bien été ajouté !' : 'L\'épisode a bien été modifié !' );
             $this->app->httpResponse()->redirect( '/admin/index.html' );

@@ -14,7 +14,7 @@ class UserFormBuilder extends FormBuilder
             'label' => 'Pseudo :',
             'name' => 'username',
             'maxLength' => 30,
-            'validators' => [
+            'validator' => [
                 new MaxLengthValidator('Le pseudo spécifié est trop long (30 caractères maximum)', 30),
                 new NotNullValidator('Merci de spécifier le pseudo de l\'utilisateur'),
                 ],
@@ -22,7 +22,7 @@ class UserFormBuilder extends FormBuilder
             ->add(new StringField([
                   'label' => 'Email :',
                   'name' => 'email',
-                  'validators' => [
+                  'validator' => [
                       new NotNullValidator('Merci de spécifier le pseudo de l\'utilisateur'),
                   ],
               ]))
@@ -30,7 +30,7 @@ class UserFormBuilder extends FormBuilder
                 'label' => 'Mot de passe :',
                 'name' => 'password',
                 'maxLength' => 15,
-                'validators' => [
+                'validator' => [
                     new MaxLengthValidator('Le mot de passe ne doit pas dépasser 15 caractères', 15),
                     new NotNullValidator('Merci de spécifier un mot de passe'),
                 ],
@@ -38,7 +38,7 @@ class UserFormBuilder extends FormBuilder
             ->add(new StringField([
                   'label' => 'Rôle :',
                   'name' => 'role',
-                  'validators' => [
+                  'validator' => [
                       new NotNullValidator('Merci de spécifier le rôle de l\'utilisateur'),
                   ],
               ]))

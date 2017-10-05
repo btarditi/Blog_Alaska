@@ -1,4 +1,18 @@
 <?php
+
+// Include and configure log4php
+include('log4php/Logger.php');
+Logger::configure('config.xml');
+ 
+/**
+ * This is a classic usage pattern: one logger object per class.
+ */
+$logger = Logger::getLogger('Bruno');
+$logger->info("Message info");
+
+
+
+
 const DEFAULT_APP = 'Frontend';
  
 // Si l'application n'est pas valide, on va charger l'application par défaut qui se chargera de générer une erreur 404

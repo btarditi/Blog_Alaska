@@ -20,7 +20,7 @@ class EpisodeFormBuilder extends FormBuilder
             'value' => 'Jean Forteroche',
             'disabled' => 'disabled',
             'maxLength' => 20,
-            'validators' => [
+            'validator' => [
                 new MaxLengthValidator('L\'auteur spécifié est trop long (20 caractères maximum)', 20),
                 new NotNullValidator('Merci de spécifier l\'auteur de cet épisode'),
             ],
@@ -41,7 +41,7 @@ class EpisodeFormBuilder extends FormBuilder
                 'cols' => 200,
                 'validator' => [
                     new NotNullValidator('Merci de spécifier le contenu de l\'épisode'),
-                ],
+                ]
             ]));
     }
 }

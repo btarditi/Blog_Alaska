@@ -1,6 +1,8 @@
 <hr>
     <h2 class="text-center" >Administration</h2>
 <hr>
+
+
 <!-- NAV TABS  -->
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3 col-md-10 col-md-offset-1">
@@ -75,9 +77,9 @@
                         <?php foreach ($listCommentaire as $commentaire): ?>
 
                         <tr <?php if($commentaire->flag() != 0) { ?> style="background-color: darkred;" <?php } ?> >
-                            <td class="text-center"><?= $commentaire->id() ?></td>
+                            <td class="text-center"><?= htmlspecialchars($commentaire->id()) ?></td>
                             <td class="text-center"><?= $commentaire->episodeId() ?></td>
-                            <td><?= $commentaire->auteur(); ?></td>
+                            <td><?= htmlspecialchars($commentaire->auteur()); ?></td>
                             <td><?= substr($commentaire->contenu(), 0, 20) . ' ...'; ?></td>
                             <td class="text-center"><?= $commentaire->flag(); ?></td>
                             
@@ -117,10 +119,10 @@
                         <?php foreach ($listUser as $user): ?>
                         <tr>
                             <td class="text-center"><?= $user->id() ?></td>
-                            <td class="text-center"><?= $user->username() ?></td>
+                            <td class="text-center"><?= htmlspecialchars($user->username()) ?></td>
                             <td class="text-center"><?= $user->email() ?></td>
                             <td class="text-center">
-                                <a href="/admin/switch-role-<?= $user->id() ?>.html" class="btn btn-default"><span class="glyphicon glyphicon-adjust" title="Intervertir le rôle utilisateur USER ou ADMIN"> <?= $user->role() ?></span></a></td>
+                                <a href="/admin/switch-role-<?= $user->id() ?>.html" class="btn btn-default"><span class="glyphicon glyphicon-adjust" title="Intervertir le rôle utilisateur USER ou ADMIN"> <?= htmlspecialchars($user->role()) ?></span></a></td>
                             <td><?= $user->salt() ?></td>
                             <td><?= substr($user->password(), 0, 15 ).'...' ?></td>
                             <td><?= $user->inscription() ?></td>

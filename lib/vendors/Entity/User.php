@@ -11,7 +11,8 @@ class User extends Entity
     protected $password;
     protected $email;
     protected $salt;
-    protected $inscription;  //user Role
+    protected $inscription; 
+    protected $role;
     
     const USERNAME_INVALIDE = 1;
     const PASSWORD_INVALIDE =2;

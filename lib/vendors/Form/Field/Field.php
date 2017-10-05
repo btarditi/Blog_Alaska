@@ -95,7 +95,7 @@ abstract class Field
     }
   }
  
-  public function setValidators(array $validator)
+  public function setValidator(array $validator)
   {
     foreach ($validator as $validator)
     {

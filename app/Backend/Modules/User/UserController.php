@@ -61,12 +61,10 @@ class UserController extends BackController
            ));
 
             // On vérifie que le username est disponible
-            $userBDD = $this->managers->getManagerOf('User')
-                ->getByUsername($request->postData('username'));
-
+            $userBDD = $this->managers->getManagerOf('User')->getByUsername($request->postData('username'));
             $username = $request->postData('username');
-
-            if(isset($username) && !empty($username)) // Si le username n'existe pas en BDD
+            
+            if(empty($userBDD) && isset($username)) // Si le username n'existe pas en BDD
             {
                 if($user->isNew())
                 {
@@ -91,17 +89,25 @@ class UserController extends BackController
             }
             else // Le username est présent dans la BDD
             {
-                $erreurs = 'Ce nom d\'utilisateur n\'est plus disponible !';
+                $this->app->user()->setFlash('Ce nom d\'utilisateur n\'est plus disponible !');
                 $this->app->httpResponse()->redirect( '/admin/user-insert.html' );
+                
             }
         }
         else
         {
-            $user = new User();
+            if( $request->getExists( 'id' ) )
+            {
+                $user = $this->managers->getManagerOf( 'User' )->getUnique( $request->getData( 'id' ) );
+            }
+            else
+            {
+                $user = new User();
+            }
         }
 
 
-        $formBuilder = new RegisterFormBuilder($user);
+        $formBuilder = new UserFormBuilder($user);
         $formBuilder->build();
         $form = $formBuilder->form();
 
@@ -109,9 +115,9 @@ class UserController extends BackController
 
         if ($formHandler->process())
         {
-            $this->app->user()->setFlash($user->isNew() ? 'Félicitation vous faite maintenant partit de l\'aventure !' : 'L\'utilisateur à bien été modifié !');
+            $this->app->user()->setFlash($user->isNew() ? 'L\'utilisateur à bien été ajouté !' : 'L\'utilisateur à bien été modifié !');
 
-            $user->isNew() ? $this->app->httpResponse()->redirect('/') : $this->app->httpResponse()->redirect('/admin/home.html#user');
+            $user->isNew() ? $this->app->httpResponse()->redirect('/admin/index.html#user') : $this->app->httpResponse()->redirect('/admin/index.html#user');
         }
 
         // Si une erreur a été générer, on l'envoie à la page
@@ -126,6 +132,8 @@ class UserController extends BackController
 
     } /* End of ProcessFormUser */
     
+    
 }
+ 
     
 
