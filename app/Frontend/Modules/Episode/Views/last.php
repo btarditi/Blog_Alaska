@@ -12,12 +12,12 @@
                 </h2>
             
                 <div class="well">
-                    <p>
+                    <p p class="panel-body">
                         <?= nl2br($episode->contenu()); ?>
                     </p>
                 </div>
 
-                <div class="well">
+                <div class="well-sm">
                     <p>
                         <a  class="btn btn-success pull-right" href="/episode/episode-<?= $episode->id(); ?>.html">Lire la suite ...</a>
                     </p>

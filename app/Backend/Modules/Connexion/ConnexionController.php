@@ -39,6 +39,7 @@ class ConnexionController extends BackController
             ] );
             // On récupère l'utilisateur en BDD
             $userBDD = $this->managers->getManagerOf('User')->getByUsername($request->postData('username'));
+            
             if(!empty($userBDD))
             {
                 // On récupère la clé de salage en BDD
@@ -75,6 +76,10 @@ class ConnexionController extends BackController
         // Si une erreur a été générer, on l'envoie à la page
         if(isset($erreurs)) {
             $this->page->addVar( 'erreurs', $erreurs );
+        }
+        
+        if(!empty($user)) {
+            $this->page->addVar('user', $user);
         }
         // On envoie le formulaire à la page
         $this->page->addVar('form', $form->createView());

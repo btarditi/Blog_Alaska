@@ -1,4 +1,9 @@
 <?php
+
+/**
+* Class Controleur Episode / Frontend
+* @param HTTPRequest $request
+*/  
 namespace App\Frontend\Modules\Episode;
 
 use \BTFram\BackController;
@@ -11,7 +16,7 @@ class EpisodeController extends BackController
 {
     
 /**
-* Home Page Controller
+* Action index Episode (page index: accueil)
 * @param HTTPRequest $request
 */    
     public function executeIndex(HTTPRequest $request)
@@ -31,6 +36,7 @@ class EpisodeController extends BackController
             {
                 $debut = substr($episode->contenu(), 0, $nbCaractere);
                 $debut = substr($debut, 0, strrpos($debut, ' ')) . '...';
+                
                 $episode->setContenu($debut);
             }
         }
@@ -40,9 +46,9 @@ class EpisodeController extends BackController
     }
 
 /**
-     * One episode Page controller
-     * @param HTTPRequest $request
-     */
+  * Action Show Episode (page show, detail episode)
+  * @param HTTPRequest $request
+  */
     public function executeShow(HTTPRequest $request)
     {
         $episode = $this->managers->getManagerOf('Episode')->getUnique($request->getData('id'));
@@ -58,7 +64,7 @@ class EpisodeController extends BackController
     }
     
 /**
-     * List of ALL episode
+     * Action All Episode (page All, tous les episodes)
      * @param HTTPRequest $request
      */    
     public function executeAll(HTTPRequest $request)
@@ -81,7 +87,7 @@ class EpisodeController extends BackController
     }
     
     /**
-     * List of last 5 Chapters
+     * Action Last Episode (page last, les 5 derniers episodes)
      * @param HTTPRequest $request
      */
     public function executeLast(HTTPRequest $request)
@@ -109,7 +115,7 @@ class EpisodeController extends BackController
     }
     
 /**
-     *  About page controller
+     *  Action About (page About, A propos de l'auteur)
      * @param HTTPRequest $request
      */    
     public function executeAbout(HTTPRequest $request)

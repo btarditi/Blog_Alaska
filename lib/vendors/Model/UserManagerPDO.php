@@ -69,7 +69,6 @@ class UserManagerPDO extends UserManager
         $q->bindValue(':role', $user->role());
         
         $q->execute();
-//        $user->setId($this->dao->lastInsertId());
     }
     /**
      * Update un users
@@ -86,7 +85,6 @@ class UserManagerPDO extends UserManager
         $q->bindValue(':salt', $user->salt());
         $q->bindValue(':role', $user->role());
         $q->bindValue(':inscription', $user->inscription());
-        $q->bindValue(':id', $user->id());
         
         $q->execute();
     }
@@ -99,6 +97,34 @@ class UserManagerPDO extends UserManager
         $this->dao->exec('DELETE FROM users WHERE id = '.(int) $id);
     }
     
+    /**
+     * Return a list for all Users
+     * @param int $debut
+     * @param int $limite
+     * @return array List Users Objects
+     */
+    public function getList($debut = -1, $limite = -1)
+    {
+        $sql = "SELECT * FROM users";
+
+        if($debut != -1 || $limite != -1)
+        {
+            $sql .= ' LIMIT ' . (int) $limite . ' OFFSET ' . (int) $debut;
+        }
+
+        $requete = $this->dao->query($sql);
+        $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
+
+        $listUser = $requete->fetchAll();
+
+        foreach ($listUser as $user)
+        {
+            $user->setInscription(new \DateTime('now'));
+        }
+        $requete->closeCursor();
+
+        return $listUser;
+    }
     /**
      * change user role
      * @param int $id

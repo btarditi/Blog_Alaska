@@ -42,16 +42,12 @@
          </div>
      <?php  else : ?>
 
-         <?php if (!$user->isAuthenticated()) : ?>
-             <p class="text-center text-danger"><a href="/admin/connect.html" >Connectez-vous</a> ou <a href="/admin/user-insert.html" >Inscrivez-vous</a> pour ajouter un commentaire</p>
-         <?php endif; ?>
-
-         <?php foreach ($commentaire as $commentaire) : ?>
-             <div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 panel panel-default comment">
+     <?php foreach ($commentaire as $commentaire) : ?>
+             <div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 panel panel-default">
                  <div class="panel-heading">
                      Posté par <strong><?= htmlspecialchars($commentaire->auteur()) ?></strong>
                      <span class="pull-right" >
-                         <a class="btn btn-xs btn-warning" title="Signaler le commentaire" href="/commentaire/flag-comment-<?= $commentaire->id() ?>.html"><span class="glyphicon glyphicon-flag"></span></a>
+                         <a class="btn btn-xs btn-warning" title="Signaler le commentaire" href="/commentaire/flag-commentaire-<?= $commentaire->id() ?>.html"><span class="glyphicon glyphicon-flag"></span></a>
                      </span>
                  </div>
 
@@ -71,7 +67,7 @@
 
                  </div>
              </div>
-         <?php endforeach; ?>
+     <?php endforeach; ?>
 
      <?php endif; ?>
  </div>

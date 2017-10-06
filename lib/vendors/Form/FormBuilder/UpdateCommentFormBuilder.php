@@ -18,14 +18,14 @@ class UpdateCommentFormBuilder extends FormBuilder
                     'value' => $_GET['id'],
                     'disabled' => 'disabled',
                     'validator' => [
-                        new NotNullValidator('Merci de spécifier l\'auteur du commentaire'),
+                        new NotNullValidator('Aucun épisode associé au commentaire !!!'),
                     ],
                 ]))
             ->add(new StringField([
                       'label' => 'Nombre de signalement :',
                       'name' => 'flag',
                       'validator' => [
-                          new NotNullValidator('Merci de spécifier l\'auteur du commentaire'),
+                          new NotNullValidator('Merci de preciser si vous voulez signaler ce commentaire'),
                       ],
                   ]))
             ->add(new StringField([

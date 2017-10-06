@@ -1,7 +1,5 @@
-<hr>
-    <h2 class="text-center" >Administration</h2>
-<hr>
 
+<h2 class="text-center" style="margin-top: 85px;margin-bottom: 30px;">Administration</h2>
 
 <!-- NAV TABS  -->
     <div class="row">
@@ -17,11 +15,10 @@
 <?php if(isset($listEpisode)): ?>
     <div class="tab-content">
         <div class="tab-pane fade in active adminTable" id="episode">
-            <p class="introAdmin text-info">Il y a actuellement <?= $nbEpisode ?> épisode(s). En voici la liste :</p>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
-                        <tr>
+                        <tr class="table">
                             <th>Identifiant</th>
                             <th>Titre</th>
                             <th>Contenu</th>
@@ -31,21 +28,19 @@
                             <th></th>  <!-- Actions column -->
                         </tr>
                     </thead>
-
                     
+                    <p style="text-align: center; margin-top: 30px; margin-bottom: 30px;">Il y a actuellement <?= $nbEpisode ?> épisode(s). En voici la liste :</p>
+
                     <?php foreach($listEpisode as $episode): ?>
                     <tr>
-                        <td><?= $episode->id() ?></td>
+                        <td class="text-center"><?= $episode->id() ?></td>
                         <td><a href="../episode/episode-<?= $episode->id() ?>.html"><?= htmlspecialchars($episode->titre()) ?></a></td>
                         <td><?= substr(nl2br($episode->contenu()), 0, 25) ?></td>
-                        <td><?= htmlspecialchars($episode->auteur()) ?></td>
-                        
+                        <td class="text-center"><?= htmlspecialchars($episode->auteur()) ?></td>
                         <td><?= $episode->dateAjout()->format('d/m/Y à H\hi') ?></td>
-                        
                         <td><?php if($episode->dateAjout() != $episode->dateModif()) { echo $episode->dateModif()->format('d/m/Y à H\hi'); } ?></td>
                         <td>
                             <a href="/admin/episode-update-<?= $episode->id() ?>.html" class="btn btn-info" title="Modifier l\'épisode = <?= $episode->id() ?>"><span class="glyphicon glyphicon-edit"></span></a>
-                            
                             <a href="/admin/episode-delete-<?= $episode->id() ?>.html" class="btn btn-danger" title="Supprimer le chapitre = <?= $episode->id() ?>"><span class="glyphicon glyphicon-edit"></span></a>
                         </td>
                     </tr>
@@ -58,25 +53,26 @@
                 <a  href="/admin/episode-insert.html" class="btn btn-success center-block"><span class="glyphicon glyphicon-plus"></span> Ajouter un épisode</a>
         </div>
         <div class="tab-pane fade adminTable" id="commentaire">
-            <p class="introAdmin text-info">Il y a actuellement <?= $nbCommentaire ?> commentaire(s), dont <?= $nbCommentaireFlag ?> commentaire(s) qui ont été signalé. En voici la liste :</p>
             
             <?php if(isset($listCommentaire)): ?>
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover table-condensed">
                         <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th>Identifiant</th>
                             <th>Episode</th>
                             <th>Auteur</th>
                             <th>Contenu</th>
-                            <th>Signalement</th>
+                            <th>Nombre de signalement</th>
                             <th>Action</th>  <!-- Actions column -->
                         </tr>
                         </thead>
+                        
+                        <p style="text-align: center; margin-top: 30px; margin-bottom: 30px;">Il y a actuellement <?= $nbCommentaire ?> commentaire(s), dont <?= $nbCommentaireFlag ?> commentaire(s) qui ont été signalé. En voici la liste :</p>
 
                         <?php foreach ($listCommentaire as $commentaire): ?>
 
-                        <tr <?php if($commentaire->flag() != 0) { ?> style="background-color: darkred;" <?php } ?> >
+                        <tr <?php if($commentaire->flag() != 0) { ?> style="background-color: red;" <?php } ?> >
                             <td class="text-center"><?= htmlspecialchars($commentaire->id()) ?></td>
                             <td class="text-center"><?= $commentaire->episodeId() ?></td>
                             <td><?= htmlspecialchars($commentaire->auteur()); ?></td>
@@ -84,9 +80,9 @@
                             <td class="text-center"><?= $commentaire->flag(); ?></td>
                             
                             <td>
-                                <a href="/admin/commentaire-update-<?= $commentaire->id() ?>.html" class="btn btn-info" title="Modifier le commentaire"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="/admin/commentaire-update-<?= $commentaire->id() ?>.html" class="btn btn-info" title="Modifier le commentaire = <?= $commentaire->id() ?>"><span class="glyphicon glyphicon-edit"></span></a>
                                 
-                                <a href="/admin/commentaire-delete-<?= $commentaire->id() ?>.html" class="btn btn-danger" title="Supprimer le commentaire d\'id = <?= $commentaire->id() ?>"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="/admin/commentaire-delete-<?= $commentaire->id() ?>.html" class="btn btn-danger" title="Supprimer le commentaire = <?= $commentaire->id() ?>"><span class="glyphicon glyphicon-edit"></span></a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -97,8 +93,6 @@
             <?php endif; ?>
         </div>
         <div class="tab-pane fade adminTable" id="user">
-            
-            <p class="introAdmin text-info">Il y a actuellement <?= $nbUser ?> utilisateur(s). En voici la liste :</p>
             
             <?php if(isset($listUser)): ?>
                 <div class="table-responsive">
@@ -115,7 +109,9 @@
                             <th></th>  <!-- Actions column -->
                         </tr>
                         </thead>
-
+                        
+                        <p style="text-align: center; margin-bottom: 30px; margin-top: 30px;">Il y a actuellement <?= $nbUser ?> utilisateur(s). En voici la liste :</p>
+                        
                         <?php foreach ($listUser as $user): ?>
                         <tr>
                             <td class="text-center"><?= $user->id() ?></td>
@@ -128,7 +124,6 @@
                             <td><?= $user->inscription() ?></td>
                             <td>
                                 <a href="/admin/user-update-<?= $user->id() ?>.html " class="btn btn-info" title="Modifier l\'utilisateur <?= $user->id(); ?>"><span class="glyphicon glyphicon-edit"></span></a>
-                                
                                 <a href="/admin/user-delete-<?= $user->id()?>.html" class="btn btn-danger" title="Supprimer l\'utilisateur <?= $user->id(); ?>"><span class="glyphicon glyphicon-remove"></span></a>
                             </td>
                         </tr>
@@ -141,4 +136,4 @@
             <a class="btn btn-success center-block" href="/admin/user-insert.html"><span class="glyphicon glyphicon-plus"></span> Ajouter un utilisateur</a>
 
         </div>
-    </div>
+</div>

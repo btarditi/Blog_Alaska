@@ -15,7 +15,7 @@
                 </p>
             </div>
 
-            <div class="well">
+            <div class="well-sm">
                 <p><a  class="btn btn-success pull-right " href="/episode/episode-<?= $episode->id() ?>.html">Lire la suite ...</a></p>
                 <?php if($episode->dateAjout() != $episode->dateModif()): ?>
                     <small class="text-center"><?= 'Modifié le ' . $episode->dateModif()->format('d/m/Y à H\hi'); ?></small>

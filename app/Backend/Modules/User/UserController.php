@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Backend\Modules\User;
+
+use \Log4php;
 use \Entity\User;
 use \BTFram\BackController;
 use \BTFram\HTTPRequest;
 use \Form\FormHandler;
 use \Form\FormBuilder\UserFormBuilder;
 use \Form\FormBuilder\RegisterFormBuilder;
+
 
 class UserController extends BackController
 {
@@ -59,7 +62,7 @@ class UserController extends BackController
                'password' => $request->postData( 'password'),
                'email' => $request->postData( 'email'),
            ));
-
+            
             // On vérifie que le username est disponible
             $userBDD = $this->managers->getManagerOf('User')->getByUsername($request->postData('username'));
             $username = $request->postData('username');
@@ -89,9 +92,17 @@ class UserController extends BackController
             }
             else // Le username est présent dans la BDD
             {
-                $this->app->user()->setFlash('Ce nom d\'utilisateur n\'est plus disponible !');
-                $this->app->httpResponse()->redirect( '/admin/user-insert.html' );
-                
+                if( $request->getExists( 'id' ) )
+                {
+                    $user = $this->managers->getManagerOf( 'User' )->getUnique( $request->getData( 'id' ) );
+                    
+                   
+                }
+                else
+                {
+                    $this->app->user()->setFlash('Ce nom d\'utilisateur n\'est plus disponible !');
+                    $this->app->httpResponse()->redirect( '/admin/user-insert.html' );
+                }
             }
         }
         else
@@ -105,9 +116,8 @@ class UserController extends BackController
                 $user = new User();
             }
         }
-
-
-        $formBuilder = new UserFormBuilder($user);
+ 
+        $formBuilder = new RegisterFormBuilder($user);
         $formBuilder->build();
         $form = $formBuilder->form();
 
@@ -117,23 +127,21 @@ class UserController extends BackController
         {
             $this->app->user()->setFlash($user->isNew() ? 'L\'utilisateur à bien été ajouté !' : 'L\'utilisateur à bien été modifié !');
 
-            $user->isNew() ? $this->app->httpResponse()->redirect('/admin/index.html#user') : $this->app->httpResponse()->redirect('/admin/index.html#user');
+            $user->isNew() ? $this->app->httpResponse()->redirect('/') : $this->app->httpResponse()->redirect('/admin/index.html#user');
         }
-
+        
         // Si une erreur a été générer, on l'envoie à la page
-        if(isset($erreurs)) {
+        if(isset($erreurs))
+        {
             $this->page->addVar( 'erreurs', $erreurs );
         }
 
-//        $this->page->addVar( 'user', $user );
         // On envoie le formulaire à la page
         $this->page->addVar('form', $form->createView());
 
 
     } /* End of ProcessFormUser */
     
-    
 }
- 
     
 

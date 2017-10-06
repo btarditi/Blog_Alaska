@@ -34,7 +34,7 @@ class CommentaireController extends BackController
             ]);
             if ($request->getExists('id'))
             {
-                $commentaire->setEpisodeId($request->getData('id'));
+                $commentaire->setId($request->getData('id'));
             }
         }
         else
@@ -53,8 +53,9 @@ class CommentaireController extends BackController
         $formBuilder->build();
         $form = $formBuilder->form();
         $formHandler = new FormHandler($form, $this->managers->getManagerOf('Commentaire'), $request);
+        
         if ($formHandler->process()) {
-            $this->app->user()->setFlash($commentaire->isNew() ? 'Le commentaire a bien été ajouté !' : 'Le commentaire a bien été modifié !');
+            $this->app->user()->setFlash('Le commentaire a bien été modifié !');
             $this->app->httpResponse()->redirect('/admin/index.html');
         }
         $this->page->addVar('commentaire', $commentaire);

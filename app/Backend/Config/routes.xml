@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
-
-
-                    <!-- ***********BACKEND***************-->
-
-         <!-- ***********BACKEND***************-->
+<!-- ***********BACKEND***************-->
 
     <!-- **********MODULE CONNECTION***************-->
     <!--LOGIN-->
-    <route url="/admin/connect.html" module="connexion" action="login" /><!-- OK -->
+    <route url="/admin/connect.html" module="connexion" action="login"/><!-- OK -->
 
     <!--LOGOUT-->
-    <route url="/admin/disconnect.html" module="connexion" action="logout" /> <!-- OK -->
-    <route url="/user/disconnect.html" module="connexion" action="logout" />
+    <route url="/admin/disconnect.html" module="connexion" action="logout"/> <!-- OK -->
+    <route url="/user/disconnect.html" module="connexion" action="logout"/>
 
             <!-- ADMIN Home Page -->
-    <route url="/admin/index.html" module="Episode" action="admin" />
+    <route url="/admin/index.html" module="Episode" action="admin"/>
 
             <!-- ADMIN /  Chapters CRUD -->
-    <route url="/admin/episode-insert.html" module="Episode" action="insert" />
-    <route url="/admin/episode-update-([0-9]+).html" module="Episode" action="update" vars="id" />
-    <route url="/admin/episode-delete-([0-9]+).html" module="Episode" action="delete" vars="id" />
+    <route url="/admin/episode-insert.html" module="Episode" action="insert"/>
+    <route url="/admin/episode-update-([0-9]+).html" module="Episode" action="update" vars="id"/>
+    <route url="/admin/episode-delete-([0-9]+).html" module="Episode" action="delete" vars="id"/>
 
             <!-- ADMIN /  Commentaire CRUD -->
-    <route url="/admin/commentaire-update-([0-9]+).html" module="Commentaire" action="update" vars="id" />
-    <route url="/admin/commentaire-delete-([0-9]+).html" module="Commentaire" action="delete" vars="id" />
+    <route url="/admin/commentaire-update-([0-9]+).html" module="Commentaire" action="update" vars="id"/>
+    <route url="/admin/commentaire-delete-([0-9]+).html" module="Commentaire" action="delete" vars="id"/>
 
             <!-- ADMIN /  Users CRUD -->
-    <route url="/admin/user-insert.html" module="User" action="insert"  />
-    <route url="/admin/user-update-([0-9]+).html" module="User" action="update" vars="id" />
-    <route url="/admin/user-delete-([0-9]+).html" module="User" action="delete" vars="id" />
+    <route url="/admin/user-insert.html" module="User" action="insert"/>
+    <route url="/admin/user-update-([0-9]+).html" module="User" action="update" vars="id"/>
+    <route url="/admin/user-delete-([0-9]+).html" module="User" action="delete" vars="id"/>
     <!-- Role user into USER || ADMIN -->
-    <route url="/admin/switch-role-([0-9]+).html" module="User" action="switchRole" vars="id" />
+    <route url="/admin/switch-role-([0-9]+).html" module="User" action="switchRole" vars="id"/>
 
 </routes>

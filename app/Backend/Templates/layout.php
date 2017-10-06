@@ -6,15 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="description" content="Projet 3 Formation CDP Multimédia "/>
         <meta name="author" content="Bruno Tarditi"/>
-        <link rel="icon" href="<?= $this->app->config()->get('ROOT') . '/img/book.png' ?>"/>
+        <link rel="icon" href="/img/book.png"/>
 
         <title>
             <?= isset($titre) ? $titre : 'Billet simple pour l\'Alaska' ?>
         </title>
 
         <!-- Bootstrap core CSS -->
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-       
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="./css/style.css" rel="stylesheet" />
+        
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -43,7 +44,7 @@
                             <li><a href="/"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
                             <li><a href="/episode/last.html"><span class="glyphicon glyphicon-book"></span> Les derniers épisodes publiés</a></li>
                             <li><a href="/episode/all.html"><span class="glyphicon glyphicon-book"></span> Tous les épisodes</a></li>
-                            <li><a href="../aPropos.html"><span class="glyphicon glyphicon-certificate"></span>  A propos</a></li>
+                            <li><a href="../a-propos.html"><span class="glyphicon glyphicon-certificate"></span>  A propos</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                                     <?php if ($this->app->user()->isAdmin()) : ?>
@@ -103,12 +104,6 @@
                 integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
                 crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=pdrmf4bzda88287gylsko1q67ss9zm95ipd82ta1sw2dgnb2"></script>
-        <script>
-                tinymce.init({
-                    selector: 'textarea'
-                });
-            </script>
-        
+                        
     </body>
 </html>

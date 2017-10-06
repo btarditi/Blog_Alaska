@@ -1,17 +1,5 @@
 <?php
 
-// Include and configure log4php
-include('log4php/Logger.php');
-Logger::configure('config.xml');
- 
-/**
- * This is a classic usage pattern: one logger object per class.
- */
-$logger = Logger::getLogger('Bruno');
-$logger->info("Message info");
-
-
-
 
 const DEFAULT_APP = 'Frontend';
  
@@ -37,8 +25,8 @@ $entityLoader->register();
 $formLoader = new SplClassLoader('Form', __DIR__.'/../lib/vendors/');
 $formLoader->register();
 
-// Il ne nous suffit plus qu'à déduire le nom de la classe et à l'instancier
 $appClass = 'App\\'.$_GET['app'].'\\'.$_GET['app'].'Application';
 
 $app = new $appClass;
 $app->run();
+

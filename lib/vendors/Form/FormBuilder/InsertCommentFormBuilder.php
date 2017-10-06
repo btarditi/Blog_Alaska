@@ -1,11 +1,12 @@
 <?php
 namespace Form\FormBuilder;
 
+use Form\Field\HiddenField;
 use \Form\Field\StringField;
 use \Form\Field\TextField;
 use \Form\Validator\MaxLengthValidator;
 use \Form\Validator\NotNullValidator;
-use Form\Field\HiddenField;
+
 
 /**
  * Class CommentFormBuilder
@@ -23,7 +24,7 @@ class InsertCommentFormBuilder extends FormBuilder
                     'value' => $_GET['id'],
                     'disabled' => 'disabled',
                     'validator' => [
-                        new NotNullValidator('Merci de spécifier l\'auteur du commentaire'),
+                        new NotNullValidator('Aucun épisode associé au commentaire !!!'),
                     ],
                 ]))
                 ->add(new StringField([

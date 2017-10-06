@@ -22,8 +22,13 @@
                 </div>
             </div>
             
-            
-            
+            <!-- TinyMCE -->
+            <script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=pdrmf4bzda88287gylsko1q67ss9zm95ipd82ta1sw2dgnb2'></script>
+            <script>
+                tinymce.init({
+                    selector: 'textarea'
+                });
+            </script>
         </form>
     </div>
 </div>

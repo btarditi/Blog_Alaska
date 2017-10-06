@@ -6,14 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Projet 3 Formation CDP Multimédia " />
         <meta name="author" content="Bruno Tarditi" />
-        <link rel="icon" href="<?= $this->app->config()->get('ROOT') . '/img/book.png' ?>" />
+        <link rel="icon" href="/img/book.png" />
 
         <title>
             <?= isset($titre) ? $titre : 'Billet simple pour l\'Alaska' ?>
         </title>
 
         <!-- Bootstrap core CSS -->
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="./css/style.css" type="text/css" rel="stylesheet" />
         
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -60,12 +61,14 @@
             </nav>
         </header>
         
-        <div class="row" >
-            <div class="jumbotron col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2" id="jumbo1"></div>
-         </div>
-
         <div id="bloc_content" class="container">
-
+            <div class="row">
+                <header class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2">
+                    <div class="jumbotron" id="jumbo1">
+                    </div>
+                </header>
+            </div>
+            
             <?php if ($user->hasFlash()) : ?>
             <div id="flashMessage" class=" alert alert-success">
                 <?= '<p class="text-center">' . $user->getFlash() . '</p>'; ?>

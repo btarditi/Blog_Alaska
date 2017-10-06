@@ -19,18 +19,18 @@ class EpisodeFormBuilder extends FormBuilder
             'name' => 'auteur',
             'value' => 'Jean Forteroche',
             'disabled' => 'disabled',
-            'maxLength' => 20,
+            'maxLength' => 30,
             'validator' => [
-                new MaxLengthValidator('L\'auteur spécifié est trop long (20 caractères maximum)', 20),
+                new MaxLengthValidator('L\'auteur spécifié est trop long (30 caractères maximum)', 30),
                 new NotNullValidator('Merci de spécifier l\'auteur de cet épisode'),
             ],
         ]))
             ->add(new StringField([
                 'label' => 'Titre',
                 'name' => 'titre',
-                'maxLength' => 30,
+                'maxLength' => 100,
                 'validator' => [
-                    new MaxLengthValidator('Le titre spécifié est trop long (30 caractères maximum)', 30),
+                    new MaxLengthValidator('Le titre spécifié est trop long (100 caractères maximum)', 100),
                     new NotNullValidator('Merci de spécifier le titre de l\épisode'),
                 ],
             ]))
@@ -38,7 +38,7 @@ class EpisodeFormBuilder extends FormBuilder
                 'label' => 'Contenu',
                 'name' => 'contenu',
                 'rows' => 8,
-                'cols' => 200,
+                'cols' => 220,
                 'validator' => [
                     new NotNullValidator('Merci de spécifier le contenu de l\'épisode'),
                 ]

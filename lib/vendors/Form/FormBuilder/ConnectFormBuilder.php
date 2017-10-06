@@ -1,7 +1,6 @@
 <?php
 namespace Form\FormBuilder;
 
-use \Form\Field\HiddenField;
 use \Form\Field\PasswordField;
 use \Form\Field\StringField;
 use \Form\Validator\MaxLengthValidator;
@@ -27,7 +26,9 @@ class ConnectFormBuilder extends FormBuilder
             ->add(new PasswordField([
                 'label' => 'Mot de passe :',
                 'name' => 'password',
+                'maxLength' => 88,
                 'validator' => [
+                    new MaxLengthValidator('Le mot de passe ne doit pas dépasser 15 caractères', 88),
                     new NotNullValidator('Merci de spécifier un mot de passe'),
                 ],
             ]));

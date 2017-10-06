@@ -35,9 +35,9 @@ class RegisterFormBuilder extends FormBuilder
             ->add(new PasswordField([
                 'label' => 'Mot de passe',
                 'name' => 'password',
-                'maxLength' => 15,
+                'maxLength' => 88,
                 'validator' => [
-                    new MaxLengthValidator('Le mot de passe ne doit pas dépasser 15 caractères', 15),
+                    new MaxLengthValidator('Le mot de passe ne doit pas dépasser 15 caractères', 88),
                     new NotNullValidator('Merci de spécifier un mot de passe'),
                 ],
             ]));

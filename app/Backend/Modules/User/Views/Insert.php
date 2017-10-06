@@ -10,11 +10,15 @@
         <?php endif; ?>
         </div>
 
+      <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <h1 class="text-center"><?= $titre ?> . <br/><small> Merci de renseigner vos informations </small>
+                </h1>
+            </div>
+        </div>
 
-    <h2 class="text-center"><?= $titre ?></h2>
-
-
-    <form action="" method="post" class="form-horizontal well">
+        <br/>
+    <form action="" method="post" class="form-horizontal">
 
         <div class="row">
 

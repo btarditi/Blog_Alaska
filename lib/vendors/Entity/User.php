@@ -10,9 +10,9 @@ class User extends Entity
     protected $username;
     protected $password;
     protected $email;
-    protected $salt;
-    protected $inscription; 
-    protected $role;
+    protected $salt;  // clé cryptage mdp (salage)
+    protected $inscription; // date inscription
+    protected $role; // role user (User ou Admin)
     
     const USERNAME_INVALIDE = 1;
     const PASSWORD_INVALIDE =2;

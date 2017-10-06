@@ -2,6 +2,4 @@
 <definitions>
   <define var="nb_episode" value="5" />
   <define var="nb_caractere" value="200" />
-  <!-- TODO: Toujours remplacer  la valeur de ROOT par l'URL-->
-  <define var="ROOT" value="http://blog_alaska"></define>
 </definitions>

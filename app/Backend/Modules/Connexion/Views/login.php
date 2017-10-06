@@ -18,7 +18,7 @@
  <?= 'MDP = 12345' ?>
         
         <div class="form-group">
-            <div class="col-sm-5 col-sm-offset-5">
+            <div class="col-sm-9 col-sm-offset-3">
                 <input type="submit" class="btn btn-success btn-block" value="Connexion" />
             </div>
         </div>
