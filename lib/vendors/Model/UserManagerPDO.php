@@ -76,15 +76,15 @@ class UserManagerPDO extends UserManager
      */
     protected function update( User $user)
     {
-        $q = $this->dao->prepare('UPDATE users SET username = :username, password = :password, email = :email, salt = :salt, role = :role, inscription = :inscription  WHERE id = :id');
+        $q = $this->dao->prepare('UPDATE users SET username = :username, password = :password, email = :email, role = :role, inscription = now()  WHERE id = :id');
         
         $q->bindValue(':id', $user->id());
         $q->bindValue(':username', $user->username());
         $q->bindValue(':password', $user->password());
         $q->bindValue(':email', $user->email());
-        $q->bindValue(':salt', $user->salt());
+        //$q->bindValue(':salt', $user->salt());
         $q->bindValue(':role', $user->role());
-        $q->bindValue(':inscription', $user->inscription());
+        //$q->bindValue(':inscription', $user->inscription());
         
         $q->execute();
     }

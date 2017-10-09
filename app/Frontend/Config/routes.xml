@@ -9,7 +9,7 @@
     <route url="/" module="Episode" action="index" /><!-- OK -->
         
     <!--ABOUT-->
-    <route url="/aPropos.html" module="Episode" action="about" /><!-- OK -->
+    <route url="/a-propos.html" module="Episode" action="about" /><!-- OK -->
 
      
     <!-- ******* ### Episode ### ******** -->

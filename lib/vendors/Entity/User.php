@@ -23,7 +23,7 @@ class User extends Entity
     
     public function isValid()
     {
-        return !(empty($this->username) || empty($this->password) || empty($this->role) || empty($this->salt));
+        return !(empty($this->username) || empty($this->password) || empty($this->email));
     }
     
     // GETTERS //
@@ -57,14 +57,7 @@ class User extends Entity
     }
     
     // SETTERS //
-    public function setId($id)
-    {
-        if(is_integer($id) && $id > 0)
-        {
-            $this->id = $id;
-        }
-    }
-    
+       
     public function setUsername($username)
     {
         if (!is_string($username) || empty($username) || strlen($username) > 30)

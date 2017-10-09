@@ -14,7 +14,7 @@
 
         <!-- Bootstrap core CSS -->
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="./css/style.css" type="text/css" rel="stylesheet" />
+        <link href="/css/style.css" type="text/css" rel="stylesheet" />
         
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,7 +42,7 @@
                             <li><a href="/"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
                             <li><a href="/episode/last.html"><span class="glyphicon glyphicon-book"></span> Les derniers épisodes publiés</a></li>
                             <li><a href="/episode/all.html"><span class="glyphicon glyphicon-book"></span> Tous les épisodes</a></li>
-                            <li><a href="../aPropos.html"><span class="glyphicon glyphicon-certificate"></span>  A propos</a></li>
+                            <li><a href="../a-propos.html"><span class="glyphicon glyphicon-certificate"></span>  A propos</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <?php if ($user->isAdmin()) : ?>

@@ -62,11 +62,8 @@ class UserController extends BackController
                'password' => $request->postData( 'password'),
                'email' => $request->postData( 'email'),
            ));
-            
-            // On vérifie que le username est disponible
             $userBDD = $this->managers->getManagerOf('User')->getByUsername($request->postData('username'));
             $username = $request->postData('username');
-            
             if(empty($userBDD) && isset($username)) // Si le username n'existe pas en BDD
             {
                 if($user->isNew())
@@ -90,20 +87,15 @@ class UserController extends BackController
                     $this->app->httpResponse()->redirect( '/admin/user-insert.html' );
                 }
             }
-            else // Le username est présent dans la BDD
-            {
-                if( $request->getExists( 'id' ) )
-                {
-                    $user = $this->managers->getManagerOf( 'User' )->getUnique( $request->getData( 'id' ) );
-                    
-                   
-                }
-                else
-                {
-                    $this->app->user()->setFlash('Ce nom d\'utilisateur n\'est plus disponible !');
-                    $this->app->httpResponse()->redirect( '/admin/user-insert.html' );
-                }
+            if($request->getExists('id')){
+                $user->setId ( $request->getData('id'));
+                $user->setUsername($request->postData('username'));
+                $user->setemail($request->postData('email'));
+                $user->setPassword($request->postData('password'));
+                $user->setRole('USER');
+                //$user->setInscription('inscription');
             }
+            
         }
         else
         {
@@ -116,7 +108,7 @@ class UserController extends BackController
                 $user = new User();
             }
         }
- 
+     
         $formBuilder = new RegisterFormBuilder($user);
         $formBuilder->build();
         $form = $formBuilder->form();
