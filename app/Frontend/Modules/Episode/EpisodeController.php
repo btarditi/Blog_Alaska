@@ -25,7 +25,7 @@ class EpisodeController extends BackController
         
         $nbCaractere = $this->app->config()->get('nb_caractere');
         // On ajoute une définition pour le titre.
-        $this->page->addVar('titre', 'Liste des ' . $nbEpisode . ' derniers épisodes');
+        $this->page->addVar('titre', 'Accueil');
         // On récupère le manager des épisodes.
         $manager = $this->managers->getManagerOf('Episode');
         $listEpisode = $manager->getList(0, $nbEpisode);

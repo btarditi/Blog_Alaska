@@ -30,7 +30,7 @@ class CommentaireManagerPDO extends CommentaireManager
         {
             $sql .= ' LIMIT ' . (int) $limite . ' OFFSET ' . (int) $debut;
         }
-        $requete = $this->dao->query($sql);
+        $requete = $this->dao->prepare($sql);
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Commentaire');
         $listCommentaire = $requete->fetchAll();
         foreach ($listCommentaire as $commentaire)
@@ -97,8 +97,9 @@ class CommentaireManagerPDO extends CommentaireManager
     public function getAll()
     {
         $sql = 'SELECT * FROM commentaires';
-        $requete = $this->dao->query($sql);
+        $requete = $this->dao->prepare($sql);
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Commentaire');
+        $requete->execute();
         $listCommentaire = $requete->fetchAll();
 
         $requete->closeCursor();
@@ -119,8 +120,9 @@ class CommentaireManagerPDO extends CommentaireManager
     {
         $sql = 'SELECT * FROM commentaires WHERE flag <> 0';
         
-        $requete = $this->dao->query($sql);
+        $requete = $this->dao->prepare($sql);
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Commentaire');
+        $requete->execute();
         $listCommentFlag = $requete->fetchAll();
         $requete->closeCursor();
         return $listCommentFlag;

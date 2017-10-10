@@ -2,7 +2,7 @@
 *                        General Elements                        *
 \*****************************************************************/
     #bloc_content {
-        /*margin-top: 150px!important;*/
+        margin-top: 150px!important;
     }
 
     /*h1:first-of-type {*/
@@ -25,7 +25,7 @@
         padding-bottom: 25px;
         text-align: center;
         font-size: 1.2em;
-        background-color: orangered;
+        background-color: rgb(16, 16, 16);
         color: white;
     }
     .footer a {
@@ -34,6 +34,16 @@
     .footer a:hover {
         color: darkslategray;
     }
+.btn-success {
+    background-color: rgb(35, 82, 124);
+    border-color: rgb(35, 82, 124);
+} 
+.btn-success:hover {
+    background-color: rgb(68, 160, 242);
+}
+.btn-success:focus {
+    background-color: rgb(122, 35, 124);
+}
 /*****************************************************************\
 *                           Home page                            *
 \*****************************************************************/
@@ -44,7 +54,7 @@
         height: 200px;
     }
     #jumbo2 {
-        background-image: url("/../images/Blog_alaska.jpg");
+        background-image: url("/../images/livre.jpg");
         background-repeat: no-repeat;
         background-size: 100% 200px;
         height: 200px;

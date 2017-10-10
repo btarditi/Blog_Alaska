@@ -32,9 +32,9 @@ class EpisodeManagerPDO extends EpisodeManager
             $sql .= ' LIMIT '.(int) $limite.' OFFSET '.(int) $debut;
         }
  
-        $requete = $this->dao->query($sql);
+        $requete = $this->dao->prepare($sql);
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Episode');
- 
+        $requete->execute();
         $listEpisode = $requete->fetchAll();
  
         foreach ($listEpisode as $episode)
@@ -67,8 +67,9 @@ class EpisodeManagerPDO extends EpisodeManager
     public function getAll()
     {
         $sql = 'SELECT * FROM episodes';
-        $requete = $this->dao->query($sql);
+        $requete = $this->dao->prepare($sql);
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Episode');
+        $requete->execute();
         $listEpisode = $requete->fetchAll();
         foreach ($listEpisode as $episode)
         {

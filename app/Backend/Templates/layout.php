@@ -58,7 +58,7 @@
                                             <a href="/admin/connect.html"><span class="glyphicon glyphicon-log-in"></span> Se connecter</a>
                                         </li>
                                         <li>
-                                            <a href="/admin/user-insert.html"><span class="glyphicon glyphicon-save"></span> S'inscrire</a>
+                                            <a href="/admin/inscription.html"><span class="glyphicon glyphicon-save"></span> S'inscrire</a>
                                         </li>
                                     <?php endif; ?>
 

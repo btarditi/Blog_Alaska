@@ -41,7 +41,7 @@ class UserManagerPDO extends UserManager
      */
     public function getAll()
     {
-        $q = $this->dao->query('SELECT * FROM users ORDER BY role, username ');
+        $q = $this->dao->prepare('SELECT * FROM users ORDER BY role, username ');
         $q->execute();
         $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
         return $users = $q->fetchAll();
@@ -112,8 +112,9 @@ class UserManagerPDO extends UserManager
             $sql .= ' LIMIT ' . (int) $limite . ' OFFSET ' . (int) $debut;
         }
 
-        $requete = $this->dao->query($sql);
+        $requete = $this->dao->prepare($sql);
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\User');
+        $requete->execute();
 
         $listUser = $requete->fetchAll();
 

@@ -27,6 +27,6 @@
     <route url="/commentaire/insert-commentaire-([0-9]+)\.html" module="Commentaire" action="insert" vars="id" />
 
         <!-- ACTION => Flag || MODULE => Comments-->
-    <route url="/commentaire/flag-comment-([0-9]+)\.html" module="Commentaire" action="flag" vars="id" />  
+    <route url="/commentaire/flag-commentaire-([0-9]+)\.html" module="Commentaire" action="flag" vars="id" />  
 
 </routes>

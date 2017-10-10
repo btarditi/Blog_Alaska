@@ -4,7 +4,8 @@
 
     <!-- **********MODULE CONNECTION***************-->
     <!--LOGIN-->
-    <route url="/admin/connect.html" module="connexion" action="login"/><!-- OK -->
+    <route url="/admin/connect.html" module="connexion" action="login"/>
+    <route url="/admin/inscription.html" module="connexion" action="addUser"/><!-- OK -->
 
     <!--LOGOUT-->
     <route url="/admin/disconnect.html" module="connexion" action="logout"/> <!-- OK -->

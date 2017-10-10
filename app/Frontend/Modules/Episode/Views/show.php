@@ -37,7 +37,7 @@
          </div>
          <div class="row">
              <?php if (!$user->isAuthenticated()) : ?>
-                 <p class="text-center text-danger"><a href="/admin/connect.html" >Connectez-vous</a> ou <a href="/admin/user-insert.html" >Inscrivez-vous</a> pour ajouter un commentaire</p>
+                 <p class="text-center text-danger"><a href="/admin/connect.html" >Connectez-vous</a> ou <a href="/admin/inscription.html" >Inscrivez-vous</a> pour ajouter un commentaire</p>
              <?php endif; ?>
          </div>
      <?php  else : ?>
