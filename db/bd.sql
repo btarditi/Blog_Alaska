@@ -46,22 +46,22 @@ CREATE TABLE IF NOT EXISTS `commentaires` (
 -- Contenu de la table `commentaires`
 --
 
-INSERT INTO `commentaires` (`id`, `id_episode`, `auteur`, `contenu`, `date`) VALUES
-  (1, 1, 'Dj', 'Ajout de commentaire test', '2017-08-30 14:35:37'),
-  (2, 2, 'Jean Forteroche', 'Mon premier commentaire', '2017-08-30 14:35:37'),
-  (3, 3, 'Jean Forteroche', 'Mon premier commentaire', '2017-08-30 14:35:37'),
-  (4, 4, 'Jean Forteroche', 'Mon premier commentaire', '2017-08-30 14:35:37'),
-  (5, 5, 'Jean Forteroche', 'Mon premier commentaire', '2017-08-30 14:35:37'),
-  (6, 6, 'Jean Forteroche', 'Mon premier commentaire', '2017-08-30 14:35:37'),
-  (7, 7, 'Jean Forteroche', 'Mon premier commentaire', '2017-08-30 14:35:37'),
-  (8, 8, 'Jean Forteroche', 'Mon premier commentaire', '2017-08-30 14:35:37'),
-  (9, 9, 'Jean Forteroche', 'Mon premier commentaire', '2017-08-30 14:35:37'),
-  (10, 10, 'Jean Forteroche', 'Mon premier commentaire', '2017-08-30 14:35:37'),
-  (11, 1, 'Jean Forteroche', 'Mon premier commentaire', '2017-08-30 14:35:37'),
-  (12, 2, 'Jean Forteroche', 'Mon premier commentaire', '2017-08-30 14:35:37'),
-  (13, 1, 'Jean Forteroche', 'Mon premier commentaire', '2017-08-30 14:35:37'),
-  (14, 1, 'Jean Forteroche', 'Mon premier commentaire', '2017-08-30 14:35:37'),
-  (15, 1, 'Jean Forteroche', 'Mon premier commentaire', '2017-08-30 14:35:37');
+INSERT INTO `commentaires` (`id`, `episodeId`, `auteur`, `contenu`, `date`) VALUES
+  (1, 1, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37'),
+  (2, 2, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37'),
+  (3, 3, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37'),
+  (4, 4, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37'),
+  (5, 5, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37'),
+  (6, 6, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37'),
+  (7, 7, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37'),
+  (8, 8, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37'),
+  (9, 9, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37'),
+  (10, 10, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37'),
+  (11, 1, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37'),
+  (12, 2, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37'),
+  (13, 1, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37'),
+  (14, 1, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37'),
+  (15, 1, 'Jean Forteroche', 'Mon premier commentaire', '0', '2017-08-30 14:35:37');
   
   
   --

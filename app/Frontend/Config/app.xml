@@ -2,4 +2,7 @@
 <definitions>
   <define var="nb_episode" value="5" />
   <define var="nb_caractere" value="200" />
+    
+     <!-- <define var="ROOT" value="http://bruno-tarditi.fr/"></define> -->
+    
 </definitions>

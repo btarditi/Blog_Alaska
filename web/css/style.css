@@ -19,6 +19,10 @@
         color: orangered;
     }
 
+    .text-left {
+        margin-left: 15%;
+    }
+
     .footer {
         margin-top: 30px;
         padding-top: 25px;

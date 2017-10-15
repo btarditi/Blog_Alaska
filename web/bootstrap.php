@@ -2,6 +2,7 @@
 
 
 const DEFAULT_APP = 'Frontend';
+define('SITE_ROOT', __DIR__);
  
 // Si l'application n'est pas valide, on va charger l'application par défaut qui se chargera de générer une erreur 404
 if (!isset($_GET['app']) || !file_exists(__DIR__.'/../App/'.$_GET['app'])) $_GET['app'] = DEFAULT_APP;
@@ -10,19 +11,19 @@ if (!isset($_GET['app']) || !file_exists(__DIR__.'/../App/'.$_GET['app'])) $_GET
 require __DIR__.'/../lib/BTFram/SplClassLoader.php';
  
 // On va ensuite enregistrer les autoloads correspondant à chaque vendor (BTFram, App, Model, etc.)
-$BTFramLoader = new SplClassLoader('BTFram', __DIR__.'/../lib');
+$BTFramLoader = new SplClassLoader('BTFram', SITE_ROOT.'/../lib');
 $BTFramLoader->register();
  
-$appLoader = new SplClassLoader('App', __DIR__.'/..');
+$appLoader = new SplClassLoader('App', SITE_ROOT.'/..');
 $appLoader->register();
  
-$modelLoader = new SplClassLoader('Model', __DIR__.'/../lib/vendors');
+$modelLoader = new SplClassLoader('Model', SITE_ROOT.'/../lib/vendors');
 $modelLoader->register();
  
-$entityLoader = new SplClassLoader('Entity', __DIR__.'/../lib/vendors');
+$entityLoader = new SplClassLoader('Entity', SITE_ROOT.'/../lib/vendors');
 $entityLoader->register();
 
-$formLoader = new SplClassLoader('Form', __DIR__.'/../lib/vendors/');
+$formLoader = new SplClassLoader('Form', SITE_ROOT.'/../lib/vendors/');
 $formLoader->register();
 
 $appClass = 'App\\'.$_GET['app'].'\\'.$_GET['app'].'Application';

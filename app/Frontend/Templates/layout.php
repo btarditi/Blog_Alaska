@@ -90,6 +90,9 @@
                     <p class=" text-center">
                         <a href="">Ce Blog</a> est une application réalisé par Bruno.
                     </p>
+                    <p class="text-left">
+                        <a href="#">Plan du site</a>
+                    </p>
                 </footer>
             </div>
         </div>

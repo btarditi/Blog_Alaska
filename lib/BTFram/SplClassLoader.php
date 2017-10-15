@@ -19,6 +19,8 @@ class SplClassLoader
   {
     $this->_namespace = $ns;
     $this->_includePath = $includePath;
+    
+   
   }
  
   /**
@@ -69,6 +71,7 @@ class SplClassLoader
   public function setFileExtension($fileExtension)
   {
     $this->_fileExtension = $fileExtension;
+   
   }
  
   /**
@@ -112,6 +115,7 @@ class SplClassLoader
         $namespace = substr($className, 0, $lastNsPos);
         $className = substr($className, $lastNsPos + 1);
         $fileName = str_replace($this->_namespaceSeparator, DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+        
       }
       $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . $this->_fileExtension;
       require ($this->_includePath !== null ? $this->_includePath . DIRECTORY_SEPARATOR : '') . $fileName;

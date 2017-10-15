@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <definitions>
-  <define var="username" value="admin" />
-  <define var="password" value="mdp" />
+  
+    <!-- <define var="ROOT" value="http://bruno-tarditi.fr/"></define> -->
+    <define var="ROOT" value="http://bruno-tarditi.fr/"></define>
+
 </definitions>

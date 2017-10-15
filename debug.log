@@ -1,0 +1,36 @@
+[14-Oct-2017 15:30:15 UTC] PHP Fatal error:  Class 'PHPUnit_Framwork_TestCase' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 4
+[14-Oct-2017 15:33:24 UTC] PHP Fatal error:  Class 'test\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 8
+[14-Oct-2017 15:33:45 UTC] PHP Fatal error:  Class 'tests\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 8
+[14-Oct-2017 15:35:03 UTC] PHP Fatal error:  Class 'tests\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 8
+[14-Oct-2017 15:35:58 UTC] PHP Fatal error:  Class 'test\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 8
+[14-Oct-2017 15:37:32 UTC] PHP Fatal error:  Class 'test\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 8
+[14-Oct-2017 15:39:54 UTC] PHP Fatal error:  Class 'Grafikart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 8
+[14-Oct-2017 15:40:28 UTC] PHP Fatal error:  Class 'Grafikart\PHPUnit_Framework_TestCase' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 5
+[14-Oct-2017 15:40:46 UTC] PHP Fatal error:  Class 'Grafikart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 8
+[14-Oct-2017 15:43:03 UTC] PHP Fatal error:  Class 'Grafikart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 8
+[14-Oct-2017 15:48:09 UTC] PHP Warning:  The use statement with non-compound name 'src' has no effect in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 3
+[14-Oct-2017 15:48:09 UTC] PHP Parse error:  syntax error, unexpected '/', expecting ',' or ';' in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 3
+[14-Oct-2017 15:48:27 UTC] PHP Warning:  The use statement with non-compound name 'src' has no effect in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 3
+[14-Oct-2017 15:48:27 UTC] PHP Fatal error:  Class 'Grafikart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 10
+[14-Oct-2017 15:49:04 UTC] PHP Warning:  The use statement with non-compound name 'PHPUNIT' has no effect in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 3
+[14-Oct-2017 15:49:04 UTC] PHP Parse error:  syntax error, unexpected '/', expecting ',' or ';' in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 3
+[14-Oct-2017 15:49:36 UTC] PHP Fatal error:  Class 'Grafikart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 10
+[14-Oct-2017 16:09:34 UTC] PHP Warning:  The use statement with non-compound name 'src' has no effect in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 3
+[14-Oct-2017 16:09:34 UTC] PHP Fatal error:  Class 'Grafikart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 10
+[14-Oct-2017 16:10:00 UTC] PHP Warning:  The use statement with non-compound name 'src' has no effect in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 3
+[14-Oct-2017 16:10:00 UTC] PHP Fatal error:  Class 'Grafikart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 10
+[14-Oct-2017 16:10:20 UTC] PHP Fatal error:  Class 'Grafikart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 9
+[14-Oct-2017 16:14:35 UTC] PHP Fatal error:  Class 'Grafikart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 9
+[14-Oct-2017 16:26:11 UTC] PHP Fatal error:  Class 'Graficart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 9
+[14-Oct-2017 16:26:35 UTC] PHP Fatal error:  Class 'Graficart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 9
+[14-Oct-2017 16:29:30 UTC] PHP Fatal error:  Class 'Graficart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 9
+[14-Oct-2017 16:30:43 UTC] PHP Warning:  include(\src\Math): failed to open stream: No such file or directory in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 3
+[14-Oct-2017 16:30:43 UTC] PHP Warning:  include(): Failed opening '\src\Math' for inclusion (include_path='.;C:\php\pear') in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 3
+[14-Oct-2017 16:30:43 UTC] PHP Fatal error:  Class 'Graficart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 10
+[14-Oct-2017 16:31:02 UTC] PHP Warning:  include(src/Math): failed to open stream: No such file or directory in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 3
+[14-Oct-2017 16:31:02 UTC] PHP Warning:  include(): Failed opening 'src/Math' for inclusion (include_path='.;C:\php\pear') in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 3
+[14-Oct-2017 16:31:02 UTC] PHP Fatal error:  Class 'Graficart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 10
+[14-Oct-2017 16:40:51 UTC] PHP Fatal error:  Class 'Graficart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 9
+[14-Oct-2017 16:40:53 UTC] PHP Fatal error:  Class 'Graficart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 9
+[14-Oct-2017 16:41:35 UTC] PHP Fatal error:  Class 'Grafikart\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 9
+[14-Oct-2017 16:45:54 UTC] PHP Fatal error:  Class 'test\Math' not found in C:\wamp64\www\PhpUnit\tests\MathTest.php on line 9
